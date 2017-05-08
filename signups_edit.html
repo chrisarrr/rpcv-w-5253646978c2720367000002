@@ -1,0 +1,60 @@
+{% if request.current_user.is_member? == false and request.current_user.tags contains "member" %}
+<div id="flash">
+  <div class="notice error clearfix">
+    <div class="flash-message">Your membership expired on <b>{{ request.current_user.membership_expires_at | date: '%B %d, %Y '}}</b>.<a href="/join"> Click here to renew.</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<p>This page let's you manage your public, private and membership settings.</p>
+
+<h3><a href="#public"><strong>Public Profile</strong></a></h3>
+<p>Every member receives a public profile page that displays some basic information about them. Only logged-in members can view social media info. This section lets you write a short bio, allow others to contact you via Facebook, Twitter or Linked in, or disable your profile completely</p>
+<h3><a href="#private"><strong>Private Settings & Password</strong></a></h3>
+<p>This section controls information that is only visible to group leadership, including your physical address (which we use to identify RPCV-centric parts of town for event planning), phone number and the email you use to log in to this site. You can also reset your password here.</p>
+<h3><a href="#account"><strong>Account Information</strong></a></h3>
+<p>This section shows you the status of your membership, including the date you joined and the date you'll need to renew your dues.</p>
+<h3><a href="http://www.rpcvw.org/volunteer"><strong>Committee Membership</strong></a></h3>
+<p><a href="http://www.rpcvw.org/volunteer" target="_blank">Click here</a> to sign up for, or opt-out of, commitee email communications.</p>
+
+<div class="padbottommore"></div>
+
+{% subpage "update" with "update_widget" %}
+
+<div class="box">
+  <strong>Password</strong>
+  <div class="padbottom"></div>
+  <small>Your password is encrypted, so in order to change it, you'll have to verify your email and go through a special form. The button below will send you an email with a password reset link</small>
+  <br>
+  <div class="padbottom"></div>
+  {% if request.current_signup.has_password? and request.current_signup.has_email? %}
+  <a href="{{ request.new_password_reset_url }}" class="small_button">Reset your password</a>
+  {% else %}
+  No email found. Please save an email address to your account first.
+  {% endif %}
+</div>
+
+<div id="account" class="box scrollspy">
+  <div class="form">  
+    <div class="row-fluid">     
+      <h4>Account Information</h4>
+      <hr>     
+      
+      <div class="row-fluid">Membership Status: {% if signup.is_member? %} <strong><i class="fa fa-check-circle on-button-small" aria-hidden="true"></i> Active</strong> {% else %} <b><i class="fa fa-times-circle red" aria-hidden="true"></i>  Inactive. </b><a href="/join">Click here to renew.</a> {% endif %}</div>
+      
+      <span class="hide"><!-- /hiding this info until we get membership forloop-->
+        <div class="row-fluid">Member since: <b>{{ request.current_user.membership_started_at | date: '%B %d, %Y' }}</b></div>
+        
+        <div class="row-fluid">Membership type: <b>{{ request.current_user.membership_level_name }}</b></div>
+        
+        <div class="row-fluid">Renewal due: <b>{{ request.current_user.membership_expires_at | date: '%B %d, %Y' }}</b></div>
+      </span>
+    </div><!-- /row-fluid-->
+    
+    <div class="padbottom">Renew Now: <a href="/one-year_regular_membership" class="small_button mentoropen" target="_blank">$15 level</a> <a href="/one-year_friend_of_rpcv_w" class="small_button mentoropen" target="_blank">$100 level</a></div> 
+    
+  </div><!-- /form -->
+  <span class="red">*</span> <small>If you joined us through the NPCA, you will need to renew your dues to us through them too. <a href="https://secure.peacecorpsconnect.org/npcassa/ssaauthmain.login_page">Click here</a> to access your member account page on their website where you can designate our group to receive your $15 dues.</small>
+  
+</div><!-- /tab C -->

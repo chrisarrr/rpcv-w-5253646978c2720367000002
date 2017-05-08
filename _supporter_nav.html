@@ -1,0 +1,175 @@
+<div class="supporter-pic clearfix">
+  <div class="supporter-pic-left">
+    <a href="{{ request.current_signup.settings_url }}#A">
+      <img src="{{ request.current_signup.profile_image_url }}">
+      <span class="pc">edit image</span>
+    </a>
+  </div>
+  <div class="supporter-pic-right">
+    <h4>{{ request.current_signup.name_or_email }}</h4>
+    <div class="user-status">
+      {% if request.current_signup.is_member? %}
+      <a href="/join"> {% if request.current_signup.tags contains "donor_level_1" %}Sponsor{% elsif request.current_signup.tags contains "board" %}</a><a href="/board">Board Member</a><a href="/join">{% else %}Member{% endif %}</a>
+      {% elsif signup.is_admin? %}
+      Administrator
+      {% elsif request.current_signup.tags contains "member" %} 
+      <a href="/join" title="Click here to renew"><strong>Expired Membership</strong></a>
+      {% else %}
+      Non-member
+      {% endif %}
+      {% if request.current_signup.has_twitter_info? %}
+      <a href="{{ request.current_signup.twitter_profile_url }}" title="Twitter Account Connected"><i class="fa fa-twitter-square fa-1"></i></a>
+      {% endif %}
+      {% if request.current_signup.has_facebook_info? %}
+      <a href="{{ request.current_signup.facebook_profile_url }}" title="Facebook Account Connected"><i class="fa fa-facebook-square fa-1"></i></a>
+      {% endif %}
+      {% if request.current_signup.linkedin_profile_url.size > 0 %}
+      <a href="{{ request.current_signup.linkedin_profile_url }}" title="Linkedin Account Connected"><i class="fa fa-linkedin-square fa-1"></i></a>
+      {% endif %}
+      {% if request.current_signup.is_banned? %}
+      <span class="">Banned</span>
+      {% elsif request.current_signup.rule_violations_count == 1 %}
+      <span class=""> {{ "fugue-flag-yellow" | icon }} Warning</span>
+      {% elsif request.current_signup.rule_violations_count == 2 %}
+      <span class=""> {{ "fugue-flag" | icon }} 1 violation</span>
+      {% elsif request.current_signup.rule_violations_count == 3 %}
+      <span class=""> {{ "fugue-flag-gray" | icon }} 2 violations</span>
+      {% endif %}
+    </div>
+    <div id="myprofile">
+      {% if site.show_public_profiles? == false %}
+      {% elsif request.current_signup.is_profile_published? %}
+      <a href="{{ request.current_signup.profile_url }}">My profile</a>
+      {% else %}
+      Profile Disabled
+      {% endif %}
+      <span class="inline-block">(<a href="{{ request.current_signup.settings_url }}">Edit</a>, <a href="{{ request.current_signup.logout_url }}">Sign out</a>)</span>
+    </div>
+  </div>
+</div>
+<a title="Update your account information" href="/update" class="button narrow login-button-join" id="update-account"><i class="fa fa-refresh fa-lg"></i>&nbsp;&nbsp;Update your profile&nbsp;&nbsp;&nbsp;</a>
+{% if current_signup.profile_content.size < 5 %}
+<div id="flash">
+  <div class="notice notice clearfix hide"> <button class="flash-close">×</button>
+    <div class="flash-message">Your profile is incomplete<hr><a href="{{ request.current_signup.settings_url }}#A"><b>Finish it or go private</b></a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if current_signup.custom_values_for_display['country_of_service_1'].size <= 2 %}
+<div id="flash">
+  <div class="notice notice clearfix">
+    <div class="flash-message">Were you in Peace Corps?<hr><a href="{{ request.current_signup.settings_url }}#A"><b> Enter your service info</b></a> 
+      <button class="flash-close">×</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if request.current_user.is_intern? %}
+<h4 class="padtop padbottom">Website Controls</h4>
+<small>You have the following permissions:</small>
+<div class="padbottommore"></div>
+<ul class="supporter-nav">
+  {% if request.current_user.can_publish? %}
+  {% if page.slug == 'country_groups' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_new_subpage_url }}"><i class="icon-feather"></i> Add a country group</a></li>
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_edit_url }}"><i class="icon-edit"></i> Edit a group</a></li>
+  {% elsif page_type == 'Blog' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_new_subpage_url }}"><i class="icon-feather"></i> New blog post</a></li>
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_edit_url }}"><i class="icon-edit"></i> Edit this page</a></li>
+  {% elsif page_type == 'Suggestion Box' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_new_subpage_url }}"><i class="icon-feather"></i> New suggestion</a></li>
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_edit_url }}"><i class="icon-edit"></i> Edit this page</a></li>
+  {% elsif page_type == 'Calendar' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_new_subpage_url }}"><i class="icon-feather"></i> New event</a></li>
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_edit_url }}"><i class="icon-edit"></i> Edit this page</a></li>
+  {% elsif page_type == 'Blog Post' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.blog_post.admin_edit_url }}"><i class="icon-edit"></i> Edit this blog post</a></li>
+  {% elsif page_type == 'Question' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.question.admin_edit_url }}"><i class="icon-edit"></i> Edit this question</a></li>
+  {% elsif page_type == 'FAQ' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.faq.admin_edit_url }}"><i class="icon-edit"></i> Edit questions</a></li>
+  {% elsif page_type == 'Suggestion' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.suggestion.admin_edit_url }}"><i class="icon-edit"></i> Edit this suggestion</a></li>
+  {% elsif page_type == 'Event' %}
+  <li class="waves-effect waves-dark"><a href="{{ page.event.admin_edit_url }}"><i class="icon-edit"></i> Edit this event</a></li>
+  {% elsif page_type == 'Profile' %}
+  <li class="waves-effect waves-dark"><a href="{{ profile.admin_edit_url }}"><i class="icon-edit"></i> Edit this person</a></li>
+  {% elsif page %}
+  <li class="waves-effect waves-dark"><a href="{{ page.admin_edit_url }}"><i class="icon-edit"></i> Edit this page</a></li>
+  {% endif %}
+  {% endif %}
+  <li class="waves-effect waves-dark"><a href="{{ site.admin_dashboard_url }}"><i class="icon-equalizer"></i> Control panel</a></li>
+  {% if request.current_user.tags contains "board" %}
+  <li class="waves-effect waves-dark"><a href="/board_page_settings"><i class="icon-tick"></i> Board Bio Settings</a></li>
+  <li class="waves-effect waves-dark"><a href="/board_resources"><i class="icon-tick"></i> Board Resources</a></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+<h4 class="padtop padbottom">Account Controls</h4>
+<div class="padbottommore"></div>
+
+<ul class="supporter-nav padtop">
+  {% if page_type == 'User Settings' %}
+  <li class="on waves-effect waves-dark"><a href="{{ request.current_signup.settings_url }}">&nbsp;<i class="fa fa-cog"></i>&nbsp;&nbsp;Your Account Status & Settings</a></li>
+  {% else %}
+  <li class="waves-effect waves-dark"><a href="{{ request.current_signup.settings_url }}">&nbsp;<i class="fa fa-cog"></i>&nbsp;&nbsp;Your Account Status & Settings</a></li>
+  {% endif %}
+    <li class="waves-effect waves-dark"><a href="/unsubscribe">&nbsp;<i class="fa fa-envelope"></i>&nbsp;&nbsp;Your Email Preferences</a></li>
+  <li class="waves-effect waves-dark"><a href="{{ request.new_password_reset_url }}">&nbsp;&nbsp;<i class="fa fa-lock"></i>&nbsp;&nbsp;Password Reset</a></li>
+  <li class="waves-effect waves-dark"><a href="/invoices">&nbsp;&nbsp;<i class="fa fa-usd"></i>&nbsp;&nbsp;Your Invoices</a></li>
+</ul>
+
+<h4 class="padtop padbottom">Member Resources</h4>
+<small>Certain pages may be accessible only to active members</small>
+<div class="padbottommore"></div>
+
+{% if request.current_user.is_member? %}
+<div class="padbottom">
+  <a class="button supporter-nav-button" href="/member_directory">Directory</a>
+</div>
+{% endif %}
+
+<ul class="supporter-nav">
+  {% for child in site.supporter_pages %}
+  <li class="waves-effect waves-dark {% if page == child %}on{% endif %}"><a href="{{ child.url }}">{{ child.icon | icon }} {{ child.name }}</a></li>
+  {% endfor %}
+  {% if page_type == 'User Page' %}
+  <li class="on waves-effect waves-dark"><a href="{{ site.edit_pages_url }}"><i class="icon-popup"></i> Pages You've Published</a></li>
+  {% else %}
+  <li class="waves-effect waves-dark"><a href="{{ site.edit_pages_url }}"><i class="icon-popup"></i> Pages You've Published</a></li>
+  {% endif %}
+  {% if page and page.is_editing_available? %}
+  <li class="waves-effect waves-dark"><a href="{{ page.edit_url }}"><i class="icon-edit"></i> Edit this page</a></li>
+  {% endif %}
+</ul>
+
+{% if request.current_signup.has_parent? %}
+<div class="clearfix">
+  <div class="point-pic-left">
+    {{ request.current_signup.parent.profile_image }}
+  </div>
+  <div class="point-pic-right" title="{{ request.current_signup.parent.published_first_name }} is your primary point of contact on the Board. Send an email with any questions you may have.">
+    <div class="byline">
+      Point of contact: {{ request.current_signup.parent.published_name_linked }}
+    </div>
+    
+    {% if request.current_signup.parent.has_twitter_info? %}
+    <a href="{{ request.current_signup.parent.twitter_profile_url }}"><i class="fa fa-twitter-square"></i></a>
+    {% endif %}
+    {% if request.current_signup.parent.has_facebook_info? %}
+    <a href="{{ request.current_signup.parent.facebook_profile_url }}"><i class="fa fa-facebook-square"></i></a>
+    {% endif %}
+    {% if request.current_signup.parent.linkedin_profile_url.size > 0 %}
+    <a href="{{ request.current_signup.parent.linkedin_profile_url }}"><i class="fa fa-linkedin-square"></i></a>
+    {% endif %}
+    <a href="mailto:{{ request.current_signup.parent.email }}"><i class="fa fa-envelope-square"></i></a>
+    
+  </div>
+</div>
+{% endif %}
+
+

@@ -1,0 +1,26 @@
+.tabs {
+  position: relative;
+  margin-left: -40px;
+  max-width: 100%;
+  text-align: center;
+  li.tab {
+    display: block;
+    float: left;
+    line-height: 18px;
+    margin: 0;
+    a {
+      @include button;
+      padding: 2px 4px;
+      font: 12px $font;
+      min-height: 22px;
+    }
+    .active {
+      color: $theme-color-1;
+      background-color: #fff; 
+      border: 1px solid $theme-color-1;
+    }
+  }
+}
+
+ul.tabs li.tab { padding: 0; }
+

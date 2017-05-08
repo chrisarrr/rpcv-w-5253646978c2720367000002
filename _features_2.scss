@@ -1,0 +1,253 @@
+// lets grab our pretty font
+@import "Font-TW-Cen-MT";
+
+// set it here
+$fancy-font: 'TW-Cen-MT', sans-serif;
+
+// declare various colors we will use
+$special-color-1: #E8B224; // med gold
+$special-color-2: darken($special-color-1, 20%); // dark gold
+$special-color-3: lighten($special-color-1, 20%); // light gold
+$special-color-4: #333; // black
+$special-color-5: #fff; // white
+$black: #000; // black
+$white: #fff; // white
+
+// container for slider
+.slider-container {
+  position: relative;
+  display: block;
+  .sliderbox {
+    font-family: $fancy-font;
+    .slider {
+      position: relative;
+      width: 100%;
+      // Fullscreen slider
+      &.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        ul.slides {
+          height: 100%;
+        }
+        ul.indicators {
+          display: none;
+        }
+        ul.navigation {
+          z-index: 20;
+          position: relative;
+          margin: 0 auto;
+          text-align: center;
+        }
+      }
+      .slides {
+        background-color: $black;
+        margin: 0;
+        height: 100%;        
+        li {
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          height: inherit;
+          overflow: hidden;
+          img {
+            background-size: cover;
+            background-position: center; 
+          }
+          .caption {
+            h2 {
+              text-transform: uppercase;
+              margin-bottom: 15px;
+              color:  $special-color-1;
+              background-color: rgba(0, 0, 0, 0.4);
+              font-family: $fancy-font;
+              padding: 5px 10px;
+            }
+            p {
+              font-family: $fancy-font;
+              color:  $special-color-1;
+              background-color: rgba(0, 0, 0, 0.4);
+              font-size:20px;
+              line-height: 1.2em;
+              padding: 5px 10px;
+            }
+            .shine {
+              position: absolute;
+              top: 0;
+              left: -70px;
+              height: 98px;
+              width: 50px;
+              background: rgba(255, 255, 255, 0.4);
+              transition: all .3s linear;
+              transform: skewX(20deg) translateX(0);
+            }
+          } 
+          &.active {
+            z-index: 2;
+          }
+        }
+      }
+    }
+  }
+  .indicators {
+    display: none;
+    position: absolute;
+    text-align: left;
+    left: 80px;
+    right: 0;
+    bottom: 0;
+    margin: 0;  
+    .indicator-item {
+      display: inline-block;
+      position: relative;
+      cursor: pointer;
+      height: 16px;
+      width: 16px;
+      margin: 0 12px;
+      background-color: $special-color-4;
+      @include transition(background-color .3s);
+      border-radius: 50%;
+      &.active {
+        background-color: $special-color-1;
+      }
+    }
+  }
+  // shadow on corners that overlays images
+  .shadow {
+    -webkit-box-shadow: inset 50px 0px 100px 0px rgba(0,0,0,0.8), inset -50px 0px 100px 0px rgba(0,0,0,0.8);
+    -moz-box-shadow: inset 50px 0px 100px 0px rgba(0,0,0,0.8),  inset -50px 0px 100px 0px rgba(0,0,0,0.8);
+    box-shadow: inset 50px 0px 100px 0px rgba(0,0,0,0.8), inset -50px 0px 100px 0px rgba(0,0,0,0.8);
+    max-width: 1068px;
+    top: 0;
+    z-index: 5;
+    position: fixed;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.right-container{ 
+  a {
+    color:  $special-color-1;
+  }
+  .logo {
+    z-index: 20;
+    max-width: 250px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.50);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    h4 {
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      color:  $special-color-1;
+      font-family: $fancy-font;
+      font-size: 14.5px;
+    }
+  }
+  .navigation {
+    z-index: 20;
+    position: relative;
+    text-align: center;
+    left: -20px;
+    font-family: $fancy-font; 
+    .button {
+      font-family: $fancy-font;
+      color: $black;
+      width: 100%;
+      max-width: 250px;
+      background-color: $special-color-1;
+      border: solid 2px  $special-color-2;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      margin: 5px;
+      padding: 5px;
+      display: inline-block;
+      -webkit-transition: background 0.3s linear;
+      -moz-transition: background 0.3s linear;
+      transition: background .3s linear; 
+      font-size: 18px;
+      a {
+        color:  $black;
+      }
+      &:hover {
+          background-color: $special-color-2;
+          border: solid 2px  $special-color-1;
+          -webkit-transition: all 0.3s linear;
+          -moz-transition: all 0.3s linear;
+          transition: all 0.3s linear;
+          a {
+            color: $special-color-3;
+            -webkit-transition: all 0.3s linear;
+            -moz-transition: all 0.3s linear;
+            transition: all 0.3s linear;
+          }
+        }
+    }      
+  }
+}
+// shiny gold effect
+
+.shine-container {
+  position: relative;
+  overflow: hidden;
+  &:hover .shine {
+      transform: skewX(25deg) translateX(300px);
+    }
+}
+
+.shine {
+  position: absolute;
+  top: 0px;
+  left: -40px;
+  height: 100%;
+  width: 5px;
+  background: $special-color-3;
+  transition: all .25s linear;
+  transform: skewX(25deg) translateX(0);
+}
+
+.gold-text {
+  position: relative;
+  text-align: center;
+  color: $special-color-1;
+  font-size: 20px;
+  h3 {
+    color:  $special-color-1;
+    margin-bottom: 15px;
+    font-size: 40px;
+    line-height: 40px;
+    font-family: $fancy-font;
+    letter-spacing: 1px;
+  }
+  h4 {
+    color:  $special-color-1;
+    font-family: $fancy-font;
+    line-height: 30px;
+    letter-spacing: 1px;
+  }
+  &:hover {
+      a {
+        color: $special-color-3;
+        border-bottom: 2px solid $special-color-2;
+      } 
+    }
+    .gold-text-button {
+      border: solid 2px  $special-color-2;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      display: block;
+      padding: 5px;
+      max-width: 150px;
+      margin: 0 auto;
+    }
+}

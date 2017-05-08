@@ -1,0 +1,453 @@
+// buttons
+
+@mixin button(){
+  cursor: pointer;
+  display: inline-block;
+  background-color: $theme-color-3;
+  @include border-radius(2px);
+  padding: 10px 15px;
+  border: 0;
+  font: 14px $headline-font;
+  color: #fff;
+  &:active {
+      position: relative;
+      top: 1px;
+    }
+    a {
+      color: #fff;
+    }
+    &:hover {
+      background-color: lighten($theme-color-1, 5);
+      color: #fff !important;
+      font-weight: bold;
+    }
+}
+
+.button, .fc-button, .fc-button-next,
+.small_button, .dead {
+  @include button;
+}
+
+.small_button {
+  @include button;
+  padding: 2px 4px;
+  font: 12px $font;
+  min-height: 20px;
+}
+
+.dead {
+  background-color: $theme-color-6;
+  color: $theme-color-7;
+  &:hover {
+      background-color: #fff;
+      color: #000 !important;
+    }
+}
+
+
+
+@media (min-width: 600px) {
+.right {
+  float:left;
+}
+}
+
+.right {
+  float:right;
+}
+
+@media
+  only screen and (max-device-width : 768px)  {
+  .right {
+    float:left;
+  }
+}
+
+.left {
+  float:left;
+}
+
+.tiny-button {
+  font-size: 12px;
+  padding: 2px 5px;
+  min-height: 100%;
+}
+
+.submit-button, .success-button {
+  @include button;
+  border: 0;
+  font: 16px $headline-font;
+}
+
+// red button, commonly used to cancel actions
+
+.destroy-link {
+  background-color: $red;
+  &:hover {
+      background-color: lighten($red, 5);
+    }
+}
+
+.submit-link {
+  @include button;
+  cursor: pointer;
+    height: 38px;
+    border: 2px solid $green;
+    background-color: rgba(0, 0, 0, 0);
+    display: inline-block;
+    color: $green;
+    font-size: 16px;
+    padding: 10px 10px;
+    line-height: 13px;
+  @include border-radius(2px);
+  &:hover {
+      text-decoration: none;
+      color: white;
+      background-color: lighten($green, 5);
+    }
+}
+
+.original-color {
+    border: 2px solid $theme-color-3;
+    color: $theme-color-3;
+  @include border-radius(2px);
+  &:hover {
+      background-color: lighten($theme-color-3, 15);
+    }
+}
+
+.neutral-link {
+  background-color: $theme-color-1;
+  &:hover {
+      background-color: lighten($theme-color-1, 5);
+    }
+}
+
+// button to close share box
+
+.share-close {
+  float: right;
+  margin: -15px -15px 10px 10px; 
+  padding: 5px;
+  min-height: auto;
+  font-size: 11px;
+  @include border-radius(0px);
+}
+
+// read more link
+
+.read-more, .read_more {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.share-container {
+  .small-button {
+    min-height: 24px;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+}
+
+//mentor buttons
+
+.mentorbuttons  {
+  background-color:$theme-color-1;
+  @include border-radius(2px);
+  text-indent:-15px;
+  color: #fff;
+  display:inline-block;
+  font: 2em $font;
+  padding:20px ;
+  width:46%;
+  text-decoration:none;
+  text-align:center;
+  text-align:middle;
+  margin: 10px;
+}
+.mentorbuttons:hover {
+  background-color:$theme-color-1 - 10;
+  color: #fff;
+}
+.mentorbuttons:active {
+  position:relative;
+  top:1px;
+  background-color:$theme-color-1 - 50;
+}
+
+.amazon {
+  @include border-radius(2px);
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 18px;
+  background: #fea501;
+  padding: 10px 20px 10px 20px;
+  border: solid #ff9900 1px;
+  text-decoration: none;
+  &:hover {
+      background: #ff9900;
+      text-decoration: none;
+      color: #ffffff;
+    }
+}
+
+a[class^="login-button"], a[class*=" login-button"] {
+  @include button;
+  font-weight: 300;
+  text-transform: none;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  &:last-of-type {
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+}
+
+a.login-button-facebook, {
+  color: #fff;
+  background: $facebook-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($facebook-color,15);
+    }
+    
+}
+
+a.login-button-twitter, {
+  color: #fff;
+  background: $twitter-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($twitter-color,15);
+    } 
+}
+
+a.login-button-linkedin, {
+  color: #fff;
+  background: $linkedin-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($linkedin-color,15);
+    } 
+}
+
+a.login-button-join, {
+  color: $green;
+  background: #fff;
+  border: 2px solid $green;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($green,15);
+    } 
+}
+
+.facebook-share, {
+  color: $facebook-color;
+  background: #fff;
+  border: 2px solid $facebook-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($facebook-color,15);
+    }
+    
+}
+
+.twitter-share {
+  color: $twitter-color;
+  background: #fff;
+  border: 2px solid $twitter-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($twitter-color,15);
+    } 
+}
+
+.linkedin-share {
+  color: $linkedin-color;
+  background: #fff;
+  border: 2px solid $linkedin-color;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($linkedin-color,15);
+    } 
+}
+
+.email-share {
+  color: $theme-color-7;
+  background: #fff;
+  border: 2px solid $theme-color-7;
+  &:hover, &:active {
+      color: #fff;
+      background: lighten($theme-color-7,15);
+    } 
+}
+
+/**
+* AddToCalendar Icon Style
+* http://addtocalendar.com
+*/
+
+/* Base */
+
+.addtocalendar {
+  var {
+    display: none;
+  }
+  position: relative;
+  display: inline-block;
+  background: transparent !important;
+}
+
+.atcb-link {
+  display: block;
+  outline: none !important;
+  cursor: pointer;
+  &:focus ~ ul, &:active ~ ul {
+      visibility: visible;
+    }
+}
+
+.atcb-list {
+  &:hover {
+      visibility: visible;
+    }
+    visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 170px;
+  z-index: 900;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+
+.atcb-item {
+  list-style: none;
+  margin: 0;
+  float: none;
+  text-align: left;
+  padding: 0 !important;
+  background: #fff;
+  text-align: left;
+  margin-bottom: 0 !important;
+}
+
+.atcb-item-link {
+  text-decoration: none;
+  outline: none;
+  display: block;
+}
+
+.atcb-item {
+  &.hover, &:hover {
+      position: relative;
+      z-index: 900;
+      cursor: pointer;
+      text-decoration: none;
+      outline: none;
+    }
+}
+
+/* rpcvw style */
+
+.atc-style-rpcvw {
+  .atcb-list {
+    margin: 1px 0px;
+    padding: 0;
+    color: #fff;
+    line-height: 1.3em;
+    vertical-align: middle;
+    zoom: 1;
+    @include border-radius(2px);
+  }
+  .atcb-link {
+    position: relative;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+    background-color: $theme-color-1;
+    min-height: 24px;
+    padding: 5px 10px;
+    font-size: 14px;
+    line-height: 28px;
+    display: block;
+    @include border-radius(2px);
+    text-align: center;
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+    &:active {
+        position: relative;
+        top: 1px;
+      }
+      color: #fff;
+    font-family: $headline-font;
+    text-decoration: none;
+    outline: none;
+    &:hover, &:active, &:focus {
+        color: #fff;
+        min-height: 24px;
+        padding: 5px 10px;
+        font-size: 14px;
+        line-height: 28px;
+        text-decoration: none;
+        outline: none;
+        font-weight: bold;
+        background-color: lighten($theme-color-1, 5);
+      }
+  }
+  .atcb-list {
+    width: 170px;
+    border: 1px solid $theme-color-6;
+    border-radius: 2px;
+    background: #fff;
+    color: #000;
+  }
+  .atcb-item {
+    background: #fff;
+    color: #000;
+    line-height: 1.3em;
+    vertical-align: middle;
+    zoom: 1;
+  }
+  .atcb-item-link {
+    line-height: 1.3em;
+    vertical-align: middle;
+    zoom: 1;
+    color: $theme-color-1;
+    font-family: $font;
+    font-size: 14px;
+    text-decoration: none;
+    outline: none;
+    padding: 5px 15px;
+    &:hover, &:active, &:focus {
+        font-family: $font;
+        font-size: 14px;
+        text-decoration: none;
+        outline: none;
+        padding: 5px 15px;
+      }
+      &:hover, &:active, &:focus {
+        color: #fff;
+        background-color: lighten($theme-color-1, 5);
+        font-weight: bold;
+      }
+  }
+  .atcb-item {
+    &.hover, &:hover {
+        background-color: $theme-color-1;
+      }
+  }
+}
+
+.get {
+  margin: 3px 0px;
+}

@@ -1,0 +1,97 @@
+
+<div class="row-fluid">
+  <div class="span8">
+    <div id="headline"><h2>Member Promotion</h2></div>
+    {% if page.headline.size > 0 %}
+    <div id="headline"><h3>{{ page.headline }}</h3></div>
+    {% endif %}
+    
+    <div id="content">
+      {% if page.event.content.size > 0 %}
+      <div id="intro" class="intro">
+        {{ page.event.content }}
+      </div>
+      {% endif %}
+      
+      <div class="event-detail">
+        <div class="subhead">OFFER ACTIVE</div>
+        <div class="subtext">
+          {% if page.event.is_multi_day? %}
+          {{ page.event.local_start_at | event_time }} - {{ page.event.local_end_at | event_date }}
+          {% else %}
+          {{ page.event.local_start_at | event_time }} - {{ page.event.local_end_at | event_just_time }}
+          {% endif %}
+        </div>
+      </div>
+      
+      {% if page.event.has_venue? %}
+      
+      <div class="event-detail">
+        <div class="subhead">WHERE</div>
+        <div class="subtext">
+          {% if page.event.venue_name.size > 0 %}
+          {{ page.event.venue_name }}<br/>
+          {% endif %}
+          {% for line in page.event.venue_address.multi_line %}
+          {{ line }}<br/>
+          {% endfor %}
+          {% if page.event.has_venue_address? %}
+          <a href="{{ page.event.venue_address.google_map_link }}">Google map and directions</a>
+          {% endif %}
+        </div>
+      </div>
+      
+      {% endif %}
+      
+      {% if page.event.has_contact? %}
+      
+      <div class="event-detail">
+        <div class="subhead">CONTACT</div>
+        <div class="subtext">
+          {{ page.event.contact_name }}
+          {% if page.event.has_public_contact_email? %}
+          &middot; {{ page.event.contact_email | enkode_email }}
+          {% endif %}
+          {% if page.event.has_public_contact_phone_number? %}
+          &middot; {{ page.event.contact_phone_number }}
+          {% endif %}
+        </div>
+      </div>
+      
+      {% endif %}
+      
+      {% if page.event.accept_rsvps?  %}
+      
+      <div class="padtop padbottom">
+        
+        {% if page.event.is_maximum_capacity? %}
+        
+        <div class="padbottom"><span class="warning">Sorry, this offer is no longer active</span></div>
+        
+        {% else %}
+        
+        {% form_for event_rsvp %}
+        
+        <div class="form-wrap">
+          <div class="form">               
+            <h4 class="headline">Interested?</h4>
+            <small>Click the button below and we'll email you a discount code or instructions to redeem this offer.</small>
+            <div class="form-errors">{% error_messages_for event_rsvp %}</div>
+              {% submit_tag "Send me the code!", class:"submit-button" %}              
+              <div class="form-submit"></div>
+          </div>
+        </div>
+        
+        {% endform_for %}       
+        {% endif %}
+        
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="span4">
+    {% if page.has_meta_image? %}
+    <img alt="{{ page.meta_image_url }}" src="{{ page.meta_image_url }}" class="img-rounded" >
+    {% endif %}
+  </div>
+</div>

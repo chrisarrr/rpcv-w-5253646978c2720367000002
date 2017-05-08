@@ -1,0 +1,48 @@
+
+    <div class="form">
+      <hr>
+      <h4>Committee Membership</h4>
+      <p></p>
+      
+       {% if request.current_signup.is_volunteer? %}
+       <div class="padtop">
+      <strong>We have you listed as a committee member.</strong>
+      </div>
+
+      <div class="padtop">
+        You can join or leave committees below:
+      </div>
+      {% else %}
+      <div class="padtop">
+        Volunteers are organized by committee, which are chaired by Board Members. You can join or leave committees below.
+      </div>
+      {% endif %}
+
+      {% form_for volunteer_signup %}
+
+      <div class="form-errors">{% error_messages_for volunteer_signup %}</div>
+
+      <div class="padtopmore">
+        {% for volunteer_type in page.volunteer_signup.volunteer_types %}
+        <div class="row-fluid">
+          <div class="span12"><label class="checkbox">
+            {% check_box_tag 'volunteer_signup[volunteer_type_ids][]', volunteer_type.id, collection:volunteer_signup.volunteer_type_ids, member:volunteer_type.id, class:"checkbox" %}
+            {{ volunteer_type.name }}
+          </label></div>
+        </div>
+        {% endfor %}
+      </div>
+      {% hidden_field_tag 'volunteer_signup[volunteer_type_ids][]', '' %}  
+
+      <div class="row-fluid">
+        <div class="span12">
+          <label for="volunteer_signup_content">Comments, other ideas, etc. (optional)</label>{% text_area "content", class:"textarea autogrow" %}
+        </div>
+      </div>
+
+      {% submit_tag "Save volunteer info", class:"submit-button" %}
+      <div class="form-submit"></div>
+
+      {% endform_for %}
+
+    </div>

@@ -1,0 +1,1 @@
+{% capture newsletter_code %}{% for post in page.blog.most_recent_blog_posts limit:4 %}<p><b><a href="{{ post.url }}" style="font-size: 14px">{{ post.headline }}</a></b><br>{{ post.published_at | date: '%B %d, %Y ' }}</p>{% endfor %}{% endcapture %}{{ newsletter_code | escape }}  

@@ -1,0 +1,10 @@
+<li class="span6 padtopmore padbottommore center">
+ <div class="span5">
+ <a href="{{ signup.profile_url }}"><img src="{{ signup.profile_image_url }}"></a>
+ </div>
+ <div class="span7">
+ <h3>{{ signup.published_name_linked }}</h3>
+ <h4>{{ signup.description }}</h4>
+ </div>
+ <small>{{ signup.email | enkode_email }}</small>
+</li>

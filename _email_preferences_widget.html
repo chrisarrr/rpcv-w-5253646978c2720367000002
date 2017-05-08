@@ -1,0 +1,17 @@
+{% form_for signup %}   
+<div class="form-errors">{% error_messages_for signup %}</div>
+
+<div class="row-fluid">
+  {% if page.signup.has_labeled_tags? %}
+  
+  {% include "labeled_tags" %}
+  
+  {% endif %}
+</div>
+
+<div class="row-fluid">
+  {% submit_tag "Update", class:"submit-button" %}
+  <div class="form-submit"></div>
+</div> 
+
+{% endform_for %}

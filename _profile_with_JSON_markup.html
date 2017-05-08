@@ -1,0 +1,219 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "address": {
+    "@type": "PostalAddress",
+            {% if profile.custom_values_for_display['country_of_service_1'].size > 0 %}"addressCountry": "{{ profile.custom_values_for_display['country_of_service_1'] }}",{% endif %}
+    },
+    
+  "image": "{{ profile.profile_image_url }}",
+  "name": "{{ profile.published_name }}",
+  "url": "{{ profile.website}}"
+}
+</script>
+
+<div class="twocolumn-container clearfix">
+  {% if profile.tags contains "donor_level_1" %}
+  <div id="flash">
+    <div class="notice notice clearfix">
+      <div class="flash-message">This is a sponsorship page which may contain links to a third party website or application. 
+        RPCV/W is not liable for any loss or damage that you may experience as a result of the use or access of any service, product, application or information advertised by its sponsors. 
+        If you have any questions or concerns about the products and services advertised, please contact the sponsor directly.
+        Clicking on any link to a third party website constitutes your review and acceptance of this disclaimer.
+        <button class="flash-close">×</button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="left-column box">
+    
+    <h2 class="headline">{{ profile.published_name }}</h2>
+
+    {% if profile.profile_content.size > 0 %}
+    <div id="intro" class="intro">
+      
+      {% if profile.tags contains "board" %}
+      <h3>{{ profile.description }}</h3>
+      {% endif %}
+      
+      {{ profile.profile_content }}
+      
+    </div>
+    {% endif %}
+    
+    <div class="box">
+      {% if settings.is_donor? %}
+      {% if profile.has_fundraising_goal? %}
+      {% assign thermo_width = 100 %}
+      <div class="clearfix">
+        <h4 class="padbottommore">{{ profile.first_name }} pledged to raise <h2 class="padbottommore">{{ profile.donations_to_raise_amount_format }}</h2></h4>
+        <div class="progress" style="width: {{ thermo_width }}%;">
+          <div class="bar bar-success" style="width: {{ profile.percent_of_fundraising_goal | times:100 }}%;">
+            {% if profile.donations_raised_amount_in_cents == 0 %}
+            <div class="bar-text">JUST STARTED</div>
+            {% else %}
+            <div class="bar-text">{{ profile.donations_raised_amount_format }} raised</div>
+            {% endif %}
+          </div>
+        </div>        
+      </div>
+      {% endif %}
+      {% endif %}
+      
+      
+      {% if site.has_button3? %}
+      {% if site.button3_page.type_name == 'Donation' %}
+      
+      <h4>Donate on {{ profile.first_name }}'s behalf:</h4>
+      <div class="padtopmore"></div>
+      {% if site.has_button3? %}
+      <a class="button supporter-nav-button" href="{{ site.button3_page.full_url_with_profile_recruiter }}">{{ site.button3_text }}</a>
+      {% endif %}
+      
+      {% endif %}
+      {% endif %}
+      
+    </div>
+    
+    <hr/>
+    <small><a href="{{ request.current_signup.settings_url }}#A">Edit your profile</a></small>
+    
+    <div class="row-fluid hide">
+      
+      <form class="ajaxForm signup_form" method="POST" action="/admin/signups/{{ request.current_signup.id }}/relationships" enctype="multipart/form-data">
+        <input name="authenticity_token" type="hidden" value="K6Iq7CrdQmA9Hst8Kkc08Zd/q7Lff3wc0INWFZYZlKk=">
+        <div class="form-errors">{% error_messages_for signup %}</div>
+        <div class="row-fluid">      
+          <div class="span4">
+            <input id="relationship_relationship_type" name="relationship[relationship_type]" type="text" value="spouse_of">
+          </div>
+          <div class="span4">
+            <input id="relationship_relationship_type" name="relationship[signup_id]" type="text" value="{{ profile.id }}">
+          </div>
+          <div class="span4">
+            <input class="submit-button" type="submit" name="commit" value="Save">
+            <div class="form-submit"></div>
+          </div><!--span4-->
+        </div><!-- /row-fluid--> 
+        
+      </form>
+      
+    </div>
+    
+  </div>
+  
+  <div class="right-column">
+    <div class="supporter-pic clearfix">
+      <div class="supporter-pic-left">
+        {{ profile.bigger_profile_image }}
+        <span class="pc">{{ request.current_signup.capital_amount_format }}</span>
+      </div>
+      <div class="supporter-pic-right">
+        <h4>{{ profile.published_name }}</h4>
+        
+        <div class="user-status">
+          
+          {% if profile.is_member? %}
+          <a href="/join"> {% if profile.tags contains "donor_level_1" %}Sponsor{% elsif profile.tags contains "board" %}</a><a href="/board">Board Member</a><a href="/join">{% else %}Member{% endif %}</a>
+          {% elsif signup.is_admin? %}
+          Administrator
+          {% elsif profile.tags contains "member" %} 
+          <a href="/join" title="Click here to renew"><strong>Expired Membership</strong></a>
+          {% else %}
+          Non-member
+          {% endif %}
+          {% if profile.is_banned? %}
+          <span class="">Banned</span>
+          {% elsif profile.rule_violations_count == 1 %}
+          <span class=""> {{ "fugue-flag-yellow" | icon }} Warning</span>
+          {% elsif profile.rule_violations_count == 2 %}
+          <span class=""> {{ "fugue-flag" | icon }} 1 violation</span>
+          {% elsif profile.rule_violations_count == 3 %}
+          <span class=""> {{ "fugue-flag-gray" | icon }} 2 violations</span>
+          {% endif %}
+          {% if profile.tags contains "board" %}
+          <br><a href="mailto:{{ profile.work_phone_number }}" title="As a member of the RPCV/W board, this person is open to public contact">{{ profile.work_phone_number }}</a>
+          {% endif %} 
+        </div>
+      </div>
+    </div>
+    
+    {% if profile.tags contains "mentor" %}
+    <div class="box" align="center">
+      <div class="signup-follow-{{ profile.id }}">
+        <strong><a href="/mentoring" class="button small">Mentor</a></strong>
+      </div>
+    </div>
+    {% endif %}  
+    
+    <div class="box">
+      {% if profile.custom_values_for_display['country_of_service_1'].size > 0 %}
+      <div><h5>First Country of Service</h5></div>
+      {{ profile.custom_values_for_display['country_of_service_1'] }} {% if profile.custom_values_for_display['dates_of_service_1'].size > 0 %}{{ profile.custom_values_for_display['dates_of_service_1'] | remove: '.0' }}{% endif %}
+      {% endif %}
+      {% if profile.custom_values_for_display['country_of_service_2'].size > 0 %}
+      <div class="padtopmore">
+        <div><h5>Second Country of Service</h5></div>
+        {{ profile.custom_values_for_display['country_of_service_2'] }} {% if profile.custom_values_for_display['dates_of_service_2'].size > 0 %}{{ profile.custom_values_for_display['dates_of_service_2'] | remove: '.0' }}{% endif %}
+      </div>
+      {% endif %}
+      {% if profile.custom_values_for_display['country_of_service_3'].size > 0 %}
+      <div class="padtopmore">
+        <div><h5>Third Country of Service</h5></div>
+        {{ profile.custom_values_for_display['country_of_service_3'] }} {% if profile.custom_values_for_display['dates_of_service_3].size > 0 %}{{ profile.custom_values_for_display['dates_of_service_3'] | remove: '.0' }}{% endif %}
+      </div>
+      {% endif %}
+      {% if profile.custom_values_for_display['country_of_service_4'].size > 0 %}
+      <div class="padtopmore">
+        <div><h5>Fourth Country of Service</h5></div>
+        {{ profile.custom_values_for_display['country_of_service_4'] }} {% if profile.custom_values_for_display['dates_of_service_4'].size > 0 %}{{ profile.custom_values_for_display['dates_of_service_4'] | remove: '.0' }}{% endif %}
+      </div>
+      {% endif %}
+      
+    </div>
+    
+    <div class="box">
+      {% if request.current_signup.is_member? %}
+      
+      {% if profile.has_twitter_info? %}
+      <div class="padtopmore">
+        <div><h5>Twitter</h5></div>
+      </div>
+      <a href="{{ profile.twitter_profile_url }}" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false">@{{ profile.twitter_login }}</a>
+      {% endif %}
+      {% if profile.linkedin_profile_url.size > 0 %}
+      <div class="padtopmore">
+        <div><h5>Linkedin</h5></div>
+      </div>
+      <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+      <script type="IN/MemberProfile" data-id="{{ profile.linkedin_profile_url }}" data-format="hover" data-text="{{ profile.published_name }}"></script>
+      {% endif %} 
+      {% if profile.has_website? %}
+      <div class="padtopmore">
+        <div><h5>Website</h5></div>
+      </div>
+      <a href="{{ profile.website}}">{{ profile.website}}</a>
+      {% endif %}
+      {% else %}
+      
+      <div class="">
+        <strong>Only logged-in, active members may view contact information:</strong>
+        <div class="padtopmore"></div>
+      </div>
+      <a class="button supporter-nav-button" href="{{ site.button1_page.full_url_with_profile_recruiter }}">{{ site.button1_text }}</a>
+      {% endif %} 
+    </div>
+    
+    
+    {% if site.has_button2? %}
+    <div class="box">
+      <strong>Join {{ profile.first_name }} at one of our events:</strong>
+      <div class="padtopmore"></div>
+      <a class="button supporter-nav-button" href="{{ site.button2_page.full_url_with_profile_recruiter }}">{{ site.button2_text }}</a>
+    </div>
+    {% endif %}
+    
+  </div>
+  
+</div>

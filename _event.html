@@ -1,0 +1,73 @@
+<div class="row-fluid" id="{{ event.event.local_start_at | date: '%Y' }}">
+  <div class="span6">
+    
+    {% if event.has_meta_image? %}
+    <a href="{{ event.url }}" title="Click here for more information"> 
+      <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" class="img-full" >
+    </a>
+    {% elsif event.attachments.size > 0 %}
+    {% for attachment in event.attachments %}
+    {% if attachment.content_type contains 'image/' %}
+    {% assign img_url = attachment.url %}
+    {% endif %}
+    {% endfor %}
+    <a href="{{ event.url }}" title="Click here for more information"> 
+      <img alt="{{ attachment.url }}" src="{{ attachment.url }}" class="img-full" >
+    </a>
+    {% endif %}
+    
+  </div> <!-- span -->
+  <div class="span6">
+    <div class="center">
+      <div class="padbottommore">
+        <h3><a href="{{ event.url }}">{{ event.name }}</a></h3>
+      </div>
+      <h4>{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }} {% if event.event.days_until < 0 %}{{ event.event.local_start_at | date: '%Y' }}{% endif %}
+        {% if event.event.is_multi_day? %}
+        through {{ event.event.local_end_at | event_date }}
+        {% endif %}</h4>
+      {% if event.event.is_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% elsif event.event.is_user_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% endif %}
+      {% if event.event.has_venue? %}
+      <div class="padtop">
+        {% if event.event.has_venue_address? %}
+        <h5><a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }} <a href="{{ event.event.venue_address.google_map_link }}" class="small_button" target="_blank" title="Click here for Google Map" id="google-map-button"> Map<i class="padleft fa fa-external-link-square"></i></a></a></h5>
+        {% else %}
+        <h5>{{ event.event.venue_name }}</h5>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="img-padright padtop truncate-300" data-truncate="300">
+      {% if event.event.content.size > 0 %}
+      {{ event.event.content }}      
+      {% endif %}
+    </div>
+  </div> <!-- span -->
+</div><!-- row -->
+<div class="row-fluid">
+  <div class="span6">
+    {% if event.event.is_maximum_capacity? %}
+    <a class="button destroy-link" href="{{ event.url }}">full</a>
+    {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+    <a class="submit-link" href="{{ event.url }}" id="event-widget-rsvp">rsvp</a>
+    {% include "addtocalendar" %}
+    {{ "share" | share_button page_id: event.id }}
+    {% endif %}
+    {% if event.event.accept_rsvps? == false %}
+    {% include "addtocalendar" %}            
+    {% endif %}
+  </div>
+  <div class="span6 center">
+    {% if event.event.show_guests? and event.event.rsvps_count > 1 %}
+    <div class="padtop">
+      <a href="{{ event.url }}#guests" id="guest-list">{{ event.event.rsvps_count }} people are going</a>
+    </div>
+    {% endif %}
+  </div>
+</div>

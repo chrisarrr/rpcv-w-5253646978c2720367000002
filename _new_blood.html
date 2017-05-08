@@ -1,0 +1,16 @@
+<div class="padtopmore"></div>
+<div class="box">
+  <h3 class="center"><a href="{{site.url}}/points">New Supporters</a></h3>
+  <hr>
+  <div class="pulsebox">
+    <div class="widget pulse">
+      {% for supporter in site.recent_supporters_with_pictures limit:20 %}
+      {{ supporter.profile_image }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+

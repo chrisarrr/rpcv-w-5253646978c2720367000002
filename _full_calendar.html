@@ -1,0 +1,41 @@
+<script>
+  $(document).ready(function() {
+    
+    $('#calendar').fullCalendar({
+      header: {
+        right: 'today prev,next',
+        left: 'title',
+      },
+      editable: false,
+      eventLimit: true, // allow "more" link when too many events
+      events: [     
+        {% for event in page.calendar.events_upcoming_all %} 
+        {
+        title: '{{event.event.local_start_at | date: "%I:%M %p"}} - {{event.headline | remove: "'" }}',
+        start: '{{event.event.local_start_at | date: "%Y-%m-%dT%T"}}', 
+        end: '{{event.event.local_end_at | date: "%Y-%m-%dT%T"}}', 
+        url: '{{event.url}}',
+        color: '#CD3C48',
+        },
+        {% endfor %}
+        {% subpage "member_led_events" with "member_led_calendar_event" %}
+      ]
+    });
+    
+  });
+</script>    
+
+<div class="padtopmore share-container" id="calendar">
+  <div id="calendar-key" class="padtopmore">
+    <div class="button" style="background-color: #CD3C48;">Official Event</div>
+    <div class="button" style="background-color: #575757;">Member Event</div>
+    <a href="#" id="hide" class="small_button right" title="Close Calendar">Close</a>
+  </div>
+</div>
+<script>
+  $("#hide").click(function(){
+    $("#calendar").toggle();
+  });
+</script>
+
+<hr>

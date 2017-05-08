@@ -1,0 +1,28 @@
+<table align="left" style="width: 100%;margin-bottom: 10px;" border="0">
+  <tbody>
+    <tr>
+      <td style="width: 70px;"><strong>CONF #</strong></td>
+      <td>{{ "now" | date: "%j%H%M%S" }}</td>
+    </tr>
+    <tr>
+      <td style="width: 70px;" valign="top"><strong>WHAT</strong></td>
+      <td>{{ page.headline }}</td>
+    </tr>
+    <tr>
+      <td style="width: 70px;" valign="top"><strong>WHEN</strong></td>
+      <td>{% if page.event.is_multi_day? %}{{ page.event.local_start_at | event_time }} - {{ page.event.local_end_at | event_time }}{% else %}{{ page.event.local_start_at | event_time }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td style="width: 70px;" valign="top"><strong>{% if page.event.has_venue? %}WHERE{% endif %}</strong></td>
+      <td>{% if page.event.venue_name.size > 0 %}{{ page.event.venue_name }}<br/>{% endif %}{% for line in page.event.venue_address.multi_line %}{{ line }}<br/>{% endfor %}{% if page.event.has_venue_address? %}<a href="{{ page.event.venue_address.google_map_link }}">Google map and directions</a><br/>{% endif %}</td>
+    </tr>
+    {% if page.event.has_contact? %}
+    <tr>
+      <td style="width: 70px;" valign="top"><strong>CONTACT:</strong></td> 
+      <td>{{ page.event.contact_name }} - {{ page.event.contact_email }}{% if page.event.has_public_contact_phone_number? %}, {{ page.event.contact_phone_number }}{% endif %}.
+      </td>
+    </tr>
+    {% endif %}
+  </tbody>
+</table>
+

@@ -1,0 +1,209 @@
+
+<div class="twocolumn-container clearfix"> 
+  <div class="mobile-visible padbottom">
+    {% if request.logged_in? == false %}
+    <div class="login-container clearfix"><!-- begin right hand content visible to people who are not logged in -->
+    <div class="waves-effect waves-dark left-button"><a title="Join RPCV/W Now" href="/join" class="button narrow login-button-join" id="join-us-mobile"><i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;Join Us&nbsp;&nbsp;&nbsp;</a></div>
+      <div class="waves-effect waves-dark right-button"><a title="Sign in with Email" href="/login" class="button narrow email-share" id="login-with-email-mobile"><i class="fa fa-envelope fa-lg"></i>&nbsp;&nbsp;Log In&nbsp;&nbsp;&nbsp;</a></div>
+      <div class="waves-effect waves-dark left-button"><a title="Sign in with Facebook" href="{{ request.facebook_connect_url }}" class="button narrow facebook-share" id="login-with-facebook-mobile"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;Log In</a></div>
+      <div class="waves-effect waves-dark right-button"><a title="Sign in with Twitter" href="{{ request.twitter_connect_url }}"  class="button narrow twitter-share" id="login-with-twitter-mobile"><i class="fa fa-twitter fa-lg"></i>&nbsp;&nbsp;Log In&nbsp;&nbsp;&nbsp;</a></div>
+
+    </div>
+    <div class="row">
+
+    </div>
+    {% endif %}
+  </div>
+  
+  {{ content_for_notifications }}
+  
+  {% for tag in page.tags %} 
+  {% if tag.name == 'error' %}
+  <div id="flash">
+    <div class="notice error clearfix"><!-- use page-tag 'error' to display-->
+      <div class="flash-message"><small>This page is in the process of being improved so some features may not be functioning correctly. Please <a href="/contact"><b>contact us</b></a> if you have suggestions to make it better.</small>
+      </div>
+      <button class="flash-close">×</button> 
+    </div>
+  </div>
+  {% endif %}
+  {% if tag.name == 'testing' %}
+  <div id="flash">
+    <div class="notice notice clearfix"><!-- use page-tag 'testing' to display-->
+      <div class="flash-message"><small>This page is still being tested, so some features may not be functioning correctly. Please <a href="/contact"><b>contact us</b></a> if you have suggestions to make it better.</small>
+      </div>
+      <button class="flash-close">×</button> 
+    </div>
+  </div>
+  {% endif %}
+  {% if tag.name == 'lockdown' %}
+  <div id="flash">
+    <div class="notice notice clearfix"><!-- use page-tag 'lockdown' to display-->
+      <div class="flash-message"> We're experiencing some technical difficulties with this form. Please <a href="/contact">contact us</a> if you'd like to be a first-year member.
+        <button class="flash-close">×</button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  
+  <div class="left-column">
+    <div class="content-{{ request.template  | replace: '_', '-' }}">
+      {% yield %}    
+    </div> 
+  </div> <!-- .left_column main -->
+  <div class="right-column">
+    {% if request.logged_in? %}
+    {% include "supporter_nav" %}
+    {% else %}
+    <div class="login-container desktop-visible clearfix"><!-- begin right hand content visible to people who are not logged in -->
+      <div class="row-fluid">
+        <a title="Join RPCV/W Now" href="/join" class="button narrow login-button-join" id="join-us"><i class="fa fa-check fa-lg"></i>&nbsp;&nbsp;Join Us&nbsp;&nbsp;&nbsp;</a>
+      </div>
+      <div class="padbottomless">or log in with</div>
+      <div class="row-fluid">
+        <div class="span6">
+          <a title="Sign in with Facebook" href="{{ request.facebook_connect_url }}" class="button narrow login-button-facebook" id="login-with-facebook"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;Facebook</a>
+        </div>
+        <div class="span6">
+          <a title="Sign in with Twitter" href="{{ request.twitter_connect_url }}"  class="button narrow login-button-twitter" id="login-with-twitter"><i class="fa fa-twitter fa-lg"></i>&nbsp;&nbsp;Twitter&nbsp;&nbsp;&nbsp;</a>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <a title="Sign in with Email" href="/login" class="span12 button narrow email-share" id="login-with-email"><i class="fa fa-envelope fa-lg"></i>&nbsp;&nbsp;Email&nbsp;&nbsp;&nbsp;</a>
+      </div>
+    </div>
+    <div class="padtopmore"></div>
+    
+    {% if site.has_button1? %}<!--Join button, not visible to logged in people-->
+    <a class="button supporter-nav-button" href="{{ site.button1_page.full_url_with_profile_recruiter }}" onClick="ga('send', 'event', { eventCategory: 'button', eventAction: 'join', eventLabel: '{{ site.button1_text }}'});">{{ site.button1_text }}</a>
+    {% endif %}
+    {% endif %}<!-- end right hand content visible to people who are not logged in -->
+    <div class="padtopmore desktop-visible">
+      <div class="box"><!--Twitter modules, one for desktop, shorter one for mobile-->
+        <a class="twitter-timeline" width="100%" height="550" data-link-color="#CD3C48" data-border-color="#EBEBEB" href="https://twitter.com/rpcvw" data-widget-id="355533379153842176">Tweets by @rpcvw</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </div>
+    </div>
+    
+    {% if site.has_button2? %}<!-- change buttons at Supporter Nav - Buttons -->
+    <div class="desktop-visible padtopless"></div>
+    <a class="button supporter-nav-button" href="{{ site.button2_page.full_url_with_profile_recruiter }}" onClick="ga('send', 'event', { eventCategory: 'button', eventAction: 'click', eventLabel: '{{ site.button2_text }}'});">{{ site.button2_text }}</a>
+    {% endif %}
+    
+    {% if site.has_button3? %}<!-- change buttons at Supporter Nav - Buttons -->
+    <a class="button supporter-nav-button" href="https://www.facebook.com/groups/rpcvw/" onClick="ga('send', 'event', { eventCategory: 'button', eventAction: 'click', eventLabel: '{{ site.button3_text }}'});">{{ site.button3_text }}</a>
+    {% endif %}
+    
+    <div class="padtopmore desktop-visible">
+      <div class="box"><!--Facebook page box-->
+        {% if site.has_facebook_page? %}
+        <div class="fb-page" data-href="{{ site.broadcaster.facebook_page_profile_url }}" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="{{ site.broadcaster.facebook_page_profile_url }}" class="fb-xfbml-parse-ignore"><a href="{{ site.broadcaster.facebook_page_profile_url }}">{{ site.broadcaster.facebook_page_username }}</a></blockquote></div>
+        {% else %}
+        <fb:like href="{{ site.full_url }}" colorscheme="{{ site.facebook_colorscheme }}" width="240"></fb:like>
+        {% endif %}        
+      </div>
+    </div>
+    
+    <!-- Sponsor List, renders on every page with columns -->
+    {% subpage "donor_level_1_directory" with "adbox_right" %}
+    
+    <!-- Right Column Modules, controlled by page tag -->
+    {% for tag in page.tags %}  
+    
+    <div class="desktop-visible"><!-- These guys disappear when in mobile -->
+
+      {% if tag.name == 'p4p_box_right' %}
+      
+      {% subpage "pfp" with "p4p_box_right" %}
+      
+      {% endif %} 
+      
+      {% if tag.name == 'towering_task_right' %}
+      
+      {% subpage "towering_task_donations" with "donate_box_right" %}
+      
+      {% endif %}
+      
+      {% if tag.name == 'mentor_box_right' %}
+      
+      {% subpage "mentoring" with "mentor_box_right" %}
+      
+      {% endif %} 
+      
+      {% if tag.name == 'supporters_right' %}
+      
+      {% include "new_blood" %}
+      
+      {% endif %}
+      
+    </div>
+    {% endfor %}
+    <!-- End Right Column Modules -->
+  </div><!-- .right-column main -->
+  
+  <!-- Left Column widgets -->
+  {% for tag in page.tags %}
+  
+  <!-- this widget appears higher up in the homepage. See individual homepage template -->
+  {% if page.is_homepage? == false and tag.name == 'events_left' %}
+  
+  {% subpage "events" with "events_left" %}
+  
+  {% endif %}
+  
+  {% if tag.name == 'member_events_large' %}
+  
+  {% subpage "member_led_events" with "member_led_events_large" %}
+  
+  {% endif %}
+  
+  {% if tag.name == 'blogs_left' %}
+  
+  {% subpage "blog" with "blogs_left" %}
+  
+  {% endif %} 
+  
+  <div class="desktop-visible"><!-- These guys disappear when in mobile -->
+
+    {% if tag.name == 'supporters_left' %}
+    <div class="padtop"></div>
+    {% include "new_blood" %}
+    
+    {% endif %}
+    
+    {% if tag.name == 'country_group_left' %}
+    
+    {% subpage "country_groups" with "country_group_widget" %}
+    
+    {% endif %} 
+    
+    {% if tag.name == 'newsletter_left' %}
+    
+    {% subpage "listserv" with "newsletter_left" %}
+    
+    {% endif %} 
+    
+    {% if tag.name == 'survey_left' %}
+    
+    {% subpage "surveys" with "survey_left" %}
+    
+    {% endif %} 
+    
+    {% if tag.name == 'tshirt_widget' %}
+    
+    {% subpage "tshirts" with "tshirts_left" %}
+    
+    {% endif %} 
+    
+    {% if tag.name == 'amazon_left' %}
+    
+    {% subpage "amazon_smile" with "amazon_left" %}
+    
+    {% endif %} 
+    
+  </div>
+  
+  {% endfor %}
+  
+</div> <!-- .twocolumn_container -->

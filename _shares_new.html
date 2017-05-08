@@ -1,0 +1,33 @@
+{% if request.sorta_logged_in? %}
+<div class="share-container">
+<div class="row-fluid">
+<div class="span12">
+<a href="#" class="button small-button share-close">X</a>
+<small>Copy and share the link below with your friends</small>
+<div class="form padbottom">
+<form><input class="text share-url" readonly value="{{ page.full_url_with_recruiter }}"></form>
+</div>
+<a class="button small-button email-share" id="event-share-email" href="mailto:?body={{ page.full_url_with_recruiter }}" target="_blank">Email</a>
+<a class="button small-button facebook-share" id="event-share-fb" href="http://www.facebook.com/share.php?u={{ page.full_url_with_recruiter | urlencode }}" target="_blank">Facebook</a>
+<a class="button small-button twitter-share" id="event-share-twitter" href="{{ page.tweet_url }}" target="_blank">Twitter</a>
+<a class="button small-button linkedin-share" id="event-share-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.full_url_with_recruiter }}&title={{ page.title }}&summary={{ page.excerpt | strip_html }}&source={{ site.url }}" target="_blank">LinkedIn</a>
+</div>
+</div>
+</div>
+{% else %}
+<div class="share-container">
+<div class="row-fluid">
+<div class="span12">
+<a href="#" class="button small-button share-close">X</a>
+<small><a href="/login">Sign in</a> if you'd like new recruits to be credited to you.</small>
+<div class="form padbottom">
+<form><input class="text share-url" readonly value="{{ page.full_url }}"></form>
+</div>
+<a class="button small-button email-share" id="event-share-email" href="mailto:?body={{ page.full_url_with_recruiter }}" target="_blank">Email</a>
+<a class="button small-button facebook-share" id="event-share-fb" href="http://www.facebook.com/share.php?u={{ page.full_url_with_recruiter | urlencode }}" target="_blank">Facebook</a>
+<a class="button small-button twitter-share" id="event-share-twitter" href="{{ page.tweet_url }}" target="_blank">Twitter</a>
+<a class="button small-button linkedin-share" id="event-share-linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{ page.full_url_with_recruiter }}&title={{ page.title }}&summary={{ page.excerpt | strip_html }}&source={{ site.url }}" target="_blank">LinkedIn</a>
+</div>
+</div>
+</div>
+{% endif %}

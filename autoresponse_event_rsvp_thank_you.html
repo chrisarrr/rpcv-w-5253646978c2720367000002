@@ -1,0 +1,18 @@
+<div style="font-size: large;">RSVP Confirmed: <a href="{{ page_url }}">{{ page.headline }}</a></div>
+<br /><br />
+{{ recipient.first_name_or_friend }}, thank you for your RSVP. {% if event_rsvp.guests_count > 0 %} We also have you down for {{ event_rsvp.guests_count }} guest(s).{% endif %} Here are the event details:<br/><br/>
+{% include "mailing_event" %}
+<br/><br/>
+If you need to update or cancel your RSVP, use this link:
+<br/><br/>
+<a href="{{ edit_url }}">{{ edit_url }}</a>
+<br/><br/>
+And you can invite others to join you at the event with this link:
+<br/><br/>
+<a href="{{ page_url }}">{{ page_url }}</a>
+<br/><br/>
+If this is for a ticketed event, your name will be on our sign in list, as will the number of tickets you purchased for any guests. We do not issue refunds for events, but we will gladly honor ticket transfers. Otherwise, we'll see you then! 
+<br/><br/>
+Thank you for staying active with RPCV/W, and please let us know if you have ideas for future events!
+{{ broadcaster.name }}<br/>
+<a href="{{ site.full_url }}">{{ site.full_url }}</a><br/>

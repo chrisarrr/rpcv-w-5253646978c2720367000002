@@ -1,0 +1,53 @@
+
+{% for signup in page.directory.listings %} <!--calls each entry in desired leaderboard -->
+{% if signup.tags contains "board" %} <!--only shows entries with particular signup tag, this example uses "board". change or remove as needed -->
+
+<div class="board-box"><!-- the shell of the bio card. Takes half the space in desktop and the full row in mobile -->
+  <div class="row-fuid"><!-- holds spans in desktop view-->
+    <div class="span4"><!--span divides into two equal columns when in desktop view, expands in mobile view. See grid.scss for particulars-->
+      <div class="board-box-left"><!-- holds the profile pic to the left and applies curved corners -->
+        
+        <a href="{{ signup.profile_url }}"><img src="{{ signup.profile_image_url }}" width="200" height="200"></a>
+        
+        <span class="left-ban">{{ signup.description }}</span> <!--Repurposed signup field. This renders whatever text is in the "background" section of the user's full profile. You can upload it in bulk through the 'Notes' field and the user can change it with the form code further down (lines 105-107)-->
+        
+      </div>   
+    </div>
+    
+    <div class="span4">
+      
+      <div class="board-box-right">
+        <h3
+        <h3>{{ signup.published_name_linked }}</h3><!-- shows the user's full name -->
+        <p></p>
+        <span class="membersince">
+          <strong>{{ signup.custom_values.country_of_service_1 }}{% if signup.custom_values.dates_of_service_1.size > 1 %}, {{ signup.custom_values.dates_of_service_1 }}{% endif %}</strong></span> <!-- User's membership status -->
+      </div>
+    </div>
+    
+    <div class="row-fuid">
+      <div class="span4 pull-right"><!-- pushes content to the right -->
+        <div class="right-ban"><!-- banner holding icons -->
+          
+          {% if signup.has_twitter_info? %}<!-- displays Twitter icon if user has account -->
+          <div class="icon"><!-- arranges icon-->
+            <a href="{{ signup.twitter_profile_url }}" title ="follow @{{ signup.first_name }}"><i class="icon-twitter-squared"></i></a>
+          </div>
+          {% endif %}
+          
+          <div class="icon"><!-- arranges icon-->
+            <a href="mailto:{{ signup.work_phone_number }}" title="Email {{ signup.first_name }}"><i class="icon-user"></i></a><!-- another repurposed field. Not wanting to show the user's private email, we're using the work phone field instead. This field is limited to 20 characters and may be changed by the user Settings-->
+          </div>
+          <div class="icon"><!-- arranges icon-->
+            <a href="{{ signup.profile_url }}" title="Full bio" ><i class="icon-question-octagon-frame"></i></a><!-- link to public profile -->
+          </div>
+          <div class="icon">
+            <script type="IN/MemberProfile"  data-id="{{ signup.website }}" data-format="hover"  data-related="false"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}

@@ -1,0 +1,68 @@
+   
+    <!--facebook tracking -->
+    <script>
+      window.fbAsyncInit = function(){
+        FB.Event.subscribe('edge.create',function(targetURL) {
+          ga('send', 'social', 'Facebook', 'like', targetURL);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('edge.remove',function(URL) {
+          ga('send', 'social', 'Facebook', 'unlike', URL);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('message.send',function(location) {
+          ga('send', 'social', 'Facebook', 'send', location);  
+          
+        }
+                          );  
+        
+        FB.Event.subscribe('comment.create',function(href) {
+          ga('send', 'social', 'Facebook', 'comment added', href);  
+          
+        }
+                          );
+        
+        FB.Event.subscribe('comment.remove',function(loc) {
+          ga('send', 'social', 'Facebook', 'comment deleted', loc);  
+          
+        }
+                          );  
+        
+      };
+    </script>
+    <!--facebook tracking -->
+
+ <!--Linkedin Plugin-->
+    
+    <script type="IN/Share" data-url="{{site.url}}" data-onsuccess="myu_linkedin"></script>
+    <script type="text/javascript">
+      //Shares on LinkedIn
+      function myu_linkedin() {
+        ga('send', {
+          'hitType': 'social',
+          'socialNetwork': 'LinkedIn',
+          'socialAction': 'Share',
+          'socialTarget': '{{ page.url }}',
+          'page': '{{ page.name }}'
+        });
+      }
+    </script>
+    
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                               n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                               t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                                                                                                      document,'script','//connect.facebook.net/en_US/fbevents.js');
+      
+      fbq('init', '1709475412616101');
+      fbq('track', "PageView");</script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1709475412616101&ev=PageView&noscript=1"
+      /></noscript>
+    <!-- End Facebook Pixel Code -->

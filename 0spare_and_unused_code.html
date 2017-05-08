@@ -1,0 +1,30 @@
+
+<div class="login-container clearfix"><!-- begin right hand content visible to people who are not logged in -->
+      <div class="waves-effect waves-dark left-button" id="login-with-email-mobile"><a href="/login">Sign in</a></div>
+      <div class="waves-effect waves-dark right-button" id="join-us-mobile"><a href="/join">Join</a></div>
+    </div>
+
+    <div class="login-container desktop-visible clearfix"><!-- begin right hand content visible to people who are not logged in -->
+      <div class="waves-effect waves-dark left-button" id="login-with-email"><a href="/login">Sign in</a></div>
+      <div class="waves-effect waves-dark right-button" id="join-us"><a href="/join">Join</a></div>
+    </div>
+
+      {% when 'calendar' %}
+  {% for event in page.calendar.events_upcoming_all limit:10 %}
+  {
+   "@context": "http://schema.org",
+   "@type": "Event",
+   "name": "{{ event.headline }}",
+   "eventStatus": "EventScheduled",
+   "startDate" : "{{ event.event.local_start_at | event_time }}",
+   "endDate" : "{{ event.event.local_end_at | event_date }}",
+   "image": "{% if event.has_meta_image? %}{{ event.meta_image_url }}{% else %}{{ allpurposeimage }}{% endif %}",
+   "url" : "{{ event.full_url }}",
+   "description": "{{ event.event.content | strip_html | truncatewords:60  }}",
+   "location" : {
+     "@type" : "Place",
+     "name" : "{{ event.event.venue_name }}",
+     "address" : "{{ event.event.venue_address.one_line }}"
+   }
+ }
+ {% endfor %}

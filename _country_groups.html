@@ -1,0 +1,17 @@
+
+{% for post in suggestions %}
+
+<div class="square-content">
+  <ul>
+    <li style="max-width:137px">
+      <a href="{{ post.url }}" class = "title" > 
+        <strong>{{ page.headline }}</strong>
+        <div class="padbottommore clearfix"></div>
+        <img src="{{ page.suggestion.image_url }}" width="137" height = "90" />
+        
+        <small>{{ page.suggestion.content | strip_html | truncatechars: 150 }}</small>
+      </a> 
+    </li>
+  </ul>
+</div>
+{% endfor %}

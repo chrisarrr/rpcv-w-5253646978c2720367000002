@@ -1,0 +1,23 @@
+<div class="onecolumn-container clearfix">
+  
+  {% for tag in page.tags %} 
+  {% if tag.name == 'error' %}
+ <div id="flash_container">
+  <div id="flash">
+    <div class="notice error clearfix">
+      <div class="flash-message"><small>This page is in the process of being improved so some features may not be functioning correctly. Please <a href="/contact"><b>contact us</b></a> if you have suggestions to make it better.</small>
+        <button class="flash-close pull-right">×</button>
+      </div>
+    </div>
+  </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  
+  <div class="columns-1-flash">{{ content_for_notifications }}</div>
+  
+  <div class="content-{{ request.template  | replace: '_', '-' }}">
+    {% yield %}
+  </div>
+</div>
+<!-- /onecolumn-container -->

@@ -1,0 +1,26 @@
+<div class="desktop-visible">
+  <div class="left-column">  
+    <h3><a href="{{page.url}}" title="Click here to see all the country groups represented in DC"> Support Your Country Group</a></h3>
+    <hr>   
+    <!-- show most recent -->
+    {% assign suggestions = page.suggestion_box.most_recent_suggestions %}
+    {% for post in suggestions limit:4 %}
+    <div class="square-content">
+      <ul>
+        <li>
+          <a href="{{ post.url }}" class = "title" title="{{ post.suggestion.content | strip_html | truncatechars: 150 }}" > 
+            <strong>{{ post.headline }}</strong>
+            <hr>
+            <img src="{{ post.suggestion.image_url }}" width="137" height = "90" />
+            <hr>
+          </a> 
+        </li>
+      </ul>
+    </div>
+    {% endfor %}
+    
+    <a href="{{page.url}}" class="small_button left">Browse the directory</a>
+    <a href="{{page.url}}#addagroup" class="small_button right">Add your group</a>
+    
+  </div>
+</div>

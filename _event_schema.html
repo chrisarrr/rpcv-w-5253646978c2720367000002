@@ -1,0 +1,54 @@
+{% for event in page.calendar.events_upcoming_all limit:1 offset:1 %} 
+"@type": "Event",
+   "name": "{{ event.headline }}",
+   "eventStatus": "EventScheduled",
+   "startDate" : "{{ event.event.local_start_at | event_time }}",
+   "endDate" : "{{ event.event.local_end_at | event_date }}",
+   "image": "{% if event.has_meta_image? %}{{ event.meta_image_url }}{% else %}{{ allpurposeimage }}{% endif %}",
+   "url" : "{{ event.full_url }}",
+   "description": "{{ event.event.content | strip_html | truncatewords:60  }}",
+   "location" : {
+     "@type" : "Place",
+     "name" : "{{ event.event.venue_name }}",
+     "address" : "{{ event.event.venue_address.one_line }}"
+   },{% endfor %}
+   {% for event in page.calendar.events_upcoming_all limit:1 offset:2 %} 
+"@type": "Event",
+   "name": "{{ event.headline }}",
+   "eventStatus": "EventScheduled",
+   "startDate" : "{{ event.event.local_start_at | event_time }}",
+   "endDate" : "{{ event.event.local_end_at | event_date }}",
+   "image": "{% if event.has_meta_image? %}{{ event.meta_image_url }}{% else %}{{ allpurposeimage }}{% endif %}",
+   "url" : "{{ event.full_url }}",
+   "description": "{{ event.event.content | strip_html | truncatewords:60  }}",
+   "location" : {
+     "@type" : "Place",
+     "name" : "{{ event.event.venue_name }}",
+     "address" : "{{ event.event.venue_address.one_line }}"
+   },{% endfor %}
+   {% for event in page.calendar.events_upcoming_all limit:1 offset:3 %} 
+"@type": "Event",
+   "name": "{{ event.headline }}",
+   "eventStatus": "EventScheduled",
+   "startDate" : "{{ event.event.local_start_at | event_time }}",
+   "endDate" : "{{ event.event.local_end_at | event_date }}",
+   "image": "{% if event.has_meta_image? %}{{ event.meta_image_url }}{% else %}{{ allpurposeimage }}{% endif %}",
+   "url" : "{{ event.full_url }}",
+   "description": "{{ event.event.content | strip_html | truncatewords:60  }}",
+   "location" : {
+     "@type" : "Place",
+     "name" : "{{ event.event.venue_name }}",
+     "address" : "{{ event.event.venue_address.one_line }}"
+   }{% endfor %}
+
+
+
+
+
+
+
+
+
+   "events": { 
+    {% subpage "events" with "event_schema" %}
+   }, 

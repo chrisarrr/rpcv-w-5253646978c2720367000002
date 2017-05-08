@@ -1,0 +1,19 @@
+
+  
+  <h2><a href="/member_led_events"></a>{{ page.headline }}</h2>
+  
+  <h3>{% if page.calendar.events_upcoming_count == 0 %}No Member-Led events listed, <a href="/member_led_events">click here to add one.</a>{% else %} There {% if page.calendar.events_upcoming_count > 1 %}are {{ page.calendar.events_upcoming_count }} Member-Led events coming up{% else %} is one Member-Led event coming up{% endif %}{% endif %}</h3>
+  
+  <hr>
+ 
+  <p>These are not official RPCV/W events. They are posted and led by active members and sponsors. For privacy purposes, only <a href="/login">logged-in</a> members may view event details and RSVP</p>
+  
+  <ul class="event-wrap row-fluid">
+    {% for event in page.calendar.events_upcoming %}
+    <li class="span6">{% include "tiny_event" %}</li>
+    {% endfor %}
+  </ul>
+  
+  <p>{% if request.current_signup.is_member? %}<a href="/member_led_events" class="submit-link" id="add-member-led-event">Add your own</a>{% elsif request.current_signup.tags contains "member" %} <a href="/join"  id="renew-to-add-member-led-event" class="button login-button-join" >Renew your membership</a> to post an event {% else %} Only members can post events. <a href="/login" id="login-to-add-member-led-event">Log in</a> to your account or <a href="/join" id="join-to-add-member-led-event">join us</a> to post yours.{% endif %}</p>
+  
+

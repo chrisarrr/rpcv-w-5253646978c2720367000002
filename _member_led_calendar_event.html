@@ -1,0 +1,9 @@
+{% for event in page.calendar.events_upcoming %} 
+{
+title: '{{event.event.local_start_at | date: "%I:%M %p"}} - {{event.headline}}',
+start: '{{event.event.local_start_at | date: "%Y-%m-%dT%T"}}', 
+end: '{{event.event.local_end_at | date: "%Y-%m-%dT%T"}}', 
+url: '{{event.url}}',
+ color: '#575757',
+},
+{% endfor %}

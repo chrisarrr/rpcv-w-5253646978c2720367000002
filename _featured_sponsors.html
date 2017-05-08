@@ -1,0 +1,50 @@
+<!--Create a new leaderboard and replace the template text with the code below -->
+
+<div class ="mobile-visible">
+  {% include "breadcrumbs" %}
+</div>
+
+<div id="content">
+  <div class="row-fluid">
+    {% for signup in page.directory.listings %} <!--calls the leaderboard- created at admin/leaderboards/new- example uses spent capital. Note that added/subtracted capital may take a couple hours to take effect on leaderboard rankings-->
+    {% if signup.tags contains "donor_level_1" %} <!--only shows entries with particular signup tag, this example uses "board". change or remove as needed -->
+    <div class="span4" style= "margin: 0 5px">
+      <div class="sponsorbox">          
+        {% for attachment in page.attachments %} <!-- upload square, high quality images to the Files section. name each by corresponding username ex: "username.jpg" -->
+        {% if attachment.file_name contains signup.username %} <!-- matches part of the image file name to the entry username, ignores file extension -->
+      <div class="row-fluid center">
+        <a href="{{ signup.profile_url }}" class="center"><img src="{{ attachment.url }}" onClick="ga('send', 'event', { eventCategory: 'link', eventAction: 'logo-click', eventLabel: '{{ signup.username }}'});" class="sponsor"></a><!-- displays the matched image -->   
+        </div>
+        {% endif %}
+        {% endfor %}
+     
+        <h3 class="center">{{ signup.published_name }}</h3><!-- shows the user's full name -->
+         <hr>
+        <div class= "membership-blurb">{{ signup.bio }}<!--Repurposed signup field. Shows whatever text is in the 'bio' field, may be overwritten by connecting Twitter account. Just save it back or connect Twitter first  (line 101)  -->             
+          <hr>
+          <div>Phone: {{ signup.phone }}</div>
+          <div><a href="{{ signup.website }}" onClick="ga('send', 'event', { eventCategory: 'link', eventAction: 'website-link-click', eventLabel: '{{ signup.username }}'});">Website</a></div>
+          <div>Sponsor since {{ signup.membership_started_at | date: ' %Y ' }}  </div> 
+          <div class="row-fluid center padtopmore"><!-- banner holding icons -->
+            {% if signup.has_twitter_info? %}<!-- displays Twitter icon if user has account -->
+            <div class= "span4"><!-- arranges icon-->
+              <a href="{{ signup.twitter_profile_url }}" title ="follow @{{ signup.twitter_login }}" onClick="ga('send', 'event', { eventCategory: 'link', eventAction: 'twitter-icon-click', eventLabel: '{{ signup.username }}'});"><i class="icon-twitter-squared"></i></a>
+            </div>
+            {% endif %}
+            {% unless signup.username contains "sonita" %}
+            <div class= "span4"><!-- arranges icon-->
+              <a href="mailto:{{ signup.email }}" title="Email {{ signup.first_name }}" onClick="ga('send', 'event', { eventCategory: 'link', eventAction: 'email-icon-click', eventLabel: '{{ signup.username }}'});"><i class="icon-user"></i></a><!-- another repurposed field. Not wanting to show the user's private email, we're using the work phone field instead. This field is limited to 20 characters and may be changed by the user Settings-->
+            </div>
+            {% endunless %}
+            <div class= "span4"><!-- arranges icon-->
+              <a href="{{ signup.profile_url }}" title="Full bio" onClick="ga('send', 'event', { eventCategory: 'link', eventAction: 'bio-icon-click', eventLabel: '{{ signup.username }}'});"><i class="icon-question-octagon-frame"></i></a><!-- link to public profile -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+

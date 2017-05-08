@@ -1,0 +1,38 @@
+<h3>{{ page.headline }}</h3>
+
+<div class="padtop">
+  {% for signup in page.directory.listings %}
+  <div class="mentorpeople">
+    <div class="networkbox">       
+      <a href="{{ signup.profile_url }}" title="View {{ signup.first_name }}'s profile" class="mentorbadge {% if signup.tags contains "mentor_open" or signup.tags contains "mentee_open" %}mentoropen"> {% else %}mentormatched">{% endif %}  
+        {% if signup.tags contains "mentor_open" or signup.tags contains "mentee_open" %}  
+        Open 
+        {% elsif signup.tags contains "mentor_matched" or signup.tags contains "mentee_matched" %}          
+        Matched 
+        {% endif %}       
+      </a>
+      {% if signup.bigger_profile_image.size > 0 %}{{ signup.bigger_profile_image }}{% else %}<div class="blankbox"></div><div class="blankbox"></div>{% endif %} 
+      <a class="mentornetwork" href="mailto:{{ signup.email }}" title="Email {{ signup.first_name }}">Contact</a>
+    </div>
+    
+    {% if signup.linkedin_profile_url.size  > 0 %}<a href="{{ signup.linkedin_profile_url }}"><i class="fa fa-linkedin-square"></i></a>{% endif %}
+    
+    <div class="ment-name">{{ signup.published_name_linked }}</div>
+    
+    <div class="ment-byline strong">{% if signup.occupation.size  > 2 or signup.employer.size  > 2 %}{% if signup.occupation.size  > 2 %}{{ signup.occupation }}{% endif %}{% if signup.occupation.size  > 2 and signup.employer.size  > 2 %}, {% endif %}{% if signup.employer.size  > 2 %}{{ signup.employer }}{% endif %}{% else %}&nbsp;{% endif %}</div>
+    
+    <div class="ment-byline">{% if signup.custom_values_for_display['country_of_service_1'].size > 0 %}{{ signup.custom_values_for_display['country_of_service_1'] }}{% if signup.custom_values_for_display['dates_of_service_1'].size > 0 %} {{ signup.custom_values_for_display['dates_of_service_1'] | remove: '.0' }}{% endif %}
+      {% endif %}</div> 
+    
+    {% if signup.relationships.size  > 0 %}
+    <div class="ment-byline">
+      {% for relationship in signup.relationships %}
+      {% if relationship.type == "mentor_of" %}Mentor of {% elsif relationship.type == "mentee_of" %}Mentee of {% endif %}{{ relationship.other_signup.published_name_linked }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+  </div>
+  {% endfor %}
+</div>
+{{ page.directory.listings | paginate }}

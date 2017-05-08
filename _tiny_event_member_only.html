@@ -1,0 +1,50 @@
+
+{% if event.has_meta_image? %}
+<a href="{% if request.current_user.is_member?	%}{{ event.url }}{% else %}/member_led_events{% endif %}" title="Click here for more information"> 
+  <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" class="img-full" >
+</a>
+{% endif %}
+
+<div class="center">
+  <div class="padbottommore">
+    <h3><a href="{% if request.current_user.is_member?	%}{{ event.url }}{% else %}/member_led_events{% endif %}">{{ event.name }}</a></h3>
+  </div>
+  <h4>{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }}
+    {% if event.event.is_multi_day? %}
+    through {{ event.event.local_end_at | event_date }}
+    {% endif %}</h4>
+  {% if event.event.is_ticket_required? %}
+  <div class="padtop"></div>
+  <strong>Ticket required</strong>
+  {% elsif event.event.is_user_ticket_required? %}
+  <div class="padtop"></div>
+  <strong>Ticket required</strong>
+  {% endif %}
+</div>
+<div class="img-padright padtop">
+  {% if event.event.content.size > 0 %}
+  {{ event.event.content | truncatechars: 100 }} {% if event.event.content.size > 100 %}<a href="{% if request.current_user.is_member?	%}{{ event.url }}{% else %}/member_led_events{% endif %}">read more</a>{% endif %}
+  {% endif %}
+</div>
+
+{% if request.current_user.is_member?	%}
+{% if event.event.is_maximum_capacity? %}
+<a class="button destroy-link" href="{{ event.url }}">full</a>
+{% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+
+<a class="submit-link" href="{{ event.url }}">rsvp</a>   
+{% include "addtocalendar" %}
+{{ "share" | share_button page_id: event.id }}
+{% endif %}
+{% if event.event.accept_rsvps? == false %}
+{% include "addtocalendar" %}            
+{% endif %}
+{% else %}
+<a class="submit-link" href="/member_led_events">rsvp</a>
+{% endif %}
+
+{% if event.event.show_guests? and event.event.rsvps_count > 1 %}
+<div class="padtop">
+  <a href="{% if request.current_user.is_member?	%}{{ event.url }}#guests{% else %}/member_led_events{% endif %}">{{ event.event.rsvps_count }} people are going</a>
+</div>
+{% endif %}

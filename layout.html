@@ -1,0 +1,179 @@
+<!DOCTYPE html >
+<!--[if lt IE 7]>
+  <html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]>
+  <html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]>
+  <html class="no-js lt-ie9"><![endif]-->
+  <!--[if gt IE 8]><!-->
+  <html class="no-js"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <script>
+      dataLayer = [{
+        'pageCategory': '{{ page.type_slug }}',
+        'notification': '{{ flash.message }}',
+        'loginStatus':  {% if request.logged_in? %}'true'{% elsif request.sorta_logged_in? %}'sorta'{% else %}'false'{% endif %},
+        {% if page.type_name == 'Donation' %}'Amount': '{{ page.donation.amount_formatted }}'{% endif %}
+      }];
+    </script>
+    <style>.async-hide{opacity:0!important}</style>
+    <script>!function(e,n,t,a,c,s,d,i,m){n.className+=" "+t,s.start=1*new Date,s.end=d=function(){n.className=n.className.replace(RegExp(" ?"+t),"")},(e[a]=e[a]||[]).hide=s,setTimeout(function(){d(),s.end=null},5e3),s.timeout=5e3}(window,document.documentElement,"async-hide","dataLayer",0,{"GTM-P8LTCD8":!0})</script>
+    <script>!function(e,t,a,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=t.createElement(a),s=t.getElementsByTagName(a)[0],o.async=1,o.src="https://www.google-analytics.com/analytics.js",s.parentNode.insertBefore(o,s)}(window,document,"script",0,"ga"),ga("create","UA-27284180-1","auto"),ga("require","GTM-P8LTCD8")</script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{ page_title }}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>!function(e,t,a,n,g){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var m=t.getElementsByTagName(a)[0],r=t.createElement(a);r.async=!0,r.src="https://www.googletagmanager.com/gtm.js?id=GTM-THNS3S",m.parentNode.insertBefore(r,m)}(window,document,"script","dataLayer")</script>
+    <link rel="stylesheet" href="theme.scss">
+    <link rel="stylesheet" href="tablet-and-desktop.scss" media="screen and (min-width:768px)">
+<!--[if IE 8]>
+<link rel="stylesheet" href="tablet-and-desktop.scss">
+<![endif]-->
+<!--[if IE]>
+<link rel="stylesheet" href="ie.scss">
+<![endif]-->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Lato" rel="stylesheet">
+{% include "schema_markup" %}
+{{ content_for_header }}
+<script>
+  NB.appConfig.userIsLoggedIn = {{request.logged_in?}};
+</script>
+<link rel="alternate" hreflang="x-default" href="{{site.full_url}}">
+<div id="fb-root"></div>
+<script>!function(e,n,t){var o,c=e.getElementsByTagName(n)[0];e.getElementById(t)||(o=e.createElement(n),o.id=t,o.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=126739610711965",c.parentNode.insertBefore(o,c))}(document,"script","facebook-jssdk")</script>
+<meta name="twitter:widgets:csp" content="on">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{ site.broadcaster.twitter_login }}">
+<meta name="twitter:title" content="{{ page.title }}">
+<meta name="twitter:description" content="{{ page.excerpt | strip_html }}">
+<meta name="twitter:image" content="{{ page.meta_image_url }}">
+{% comment if request.url_path == "/login" or "https://rpcvw.nationbuilder.com/forms/user_sessions" %}
+<meta property="og:type" content="website">
+<meta property="og:description" content="Log in to rpcvw.org to view this content. Join for free at rpcvw.org/join">
+<meta property="og:image" content="https://d3n8a8pro7vhmx.cloudfront.net/themes/5253646978c2720367000002/attachments/original/1459800165/RPCVW-square-logo-thumbnail.png?1459800165">
+<meta property="og:image:secure_url" content="https://d3n8a8pro7vhmx.cloudfront.net/themes/5253646978c2720367000002/attachments/original/1459800165/RPCVW-square-logo-thumbnail.png?1459800165">
+{% endcomment %}
+{% if request.url_path contains "country_of_service_map" or request.url_path contains "test" %} {% include "country_of_service_parser" %} {% endif %} {% if request.url_path contains "map" %}
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css">
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+<style>#map{width:800px;height:600px}</style>
+{% endif %}
+{% if request.url_path contains "events" or request.url_path contains "test" %}
+<link rel="stylesheet" href="calendar.scss">
+{% include "head_calendar" %} {% endif %}
+{% if request.url_path contains "gala" %}<link rel="stylesheet" href="gala_2016.css">{% endif %}
+</head>
+{% assign tags_list = "" %} {% for tag in page.tags %} {% assign tags_list = tag.name | append: ", " | append: tags_list %} {% endfor %}
+<body class="aware-theme v2-theme {{ page.page_class_name }} js">
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THNS3S" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <div id="pattern" class="pattern">
+    <div class="wrap" id="wrap">
+      <div id="body" class="page-{{ request.template | replace: '_', '-' }}">
+        <div class="header-container clearfix {% if page.is_homepage? %}fadeintop{% endif %}">
+          {% if request.sorta_logged_in? == true %}
+          <div id="flash" class="infobar">
+            {% unless request.current_signup.has_twitter_authorization? or request.current_signup.has_facebook_authorization? %} {% if request.current_signup.tags contains "member" and request.current_signup.has_password? == false %}
+            <div class="notice notice clearfix"><button class="flash-close">×</button>
+              <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> Hi {{ request.current_signup.name_or_email }}! We have membership info for you on file, but you haven't set a password. <a href="/login">Please take control of your account</a>.</small>
+              </div>
+            </div>
+            {% elsif request.current_signup.has_password? == false and page.slug != "update" %}
+            <div class="notice notice clearfix"><button class="flash-close">×</button>
+              <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> One more step! You need to fully activate your account and set a password for future use. Please <a href="/join">select a membership</a> or <a href="/login">continue as a non-member</a>.</small>
+              </div>
+            </div>
+            {% endif %} {% endunless %} {% if request.current_user.is_member? == false and request.current_user.tags contains "member" %}
+            <div class="notice error clearfix"><button class="flash-close">×</button>
+              <div class="flash-message"><small><i class="fa fa-exclamation-circle fa-lg padright"></i> Your membership has expired. You may be signed out when trying to access certain parts of the website. <b><a href="/join">Click here to renew</a>.</b></small>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+          <div id="begin" class="width-container clearfix scrollspy">
+            {% include "nav" %} {% if site.has_meta_image? %}
+            <a class="site-logo" href="/">
+              <header>
+<!--[if !IE]>
+{% include "rpcvw_svg_logo" %}
+<![endif]-->
+<!--[if IE]> 
+<img title="Home" src="http://d3n8a8pro7vhmx.cloudfront.net/themes/5253646978c2720367000002/attachments/original/1437755366/rpcvw_web_logo.png?1437755366" border="0" alt="RPCVW-logo" >
+<!-- <[endif]-->
+</header>
+</a>
+{% else %}
+<header>
+  <h1 class="title"><a href="/">{{ site.long_name }}</a></h1>
+</header>
+{% endif %}
+</div>
+</div>
+{% if page.features_count > 0 and is_homepage? == false %}
+<div class="width-container">
+  {% include "features" %}
+</div>
+{% endif %}
+<div class="main-container" id="middle">
+  <div class="main width-container clearfix">
+    {% unless page.is_user_submitted? and tags_list contains "Pending Approval" %} {% if request.is_sidebar? %} {% include "columns_2" %} {% else %} {% include "columns_1" %} {% endif %} {% else %}
+    <p>This page is pending approval. Email info@rpcvw.org if you have any questions.</p>
+    {% endunless %}
+  </div>
+</div>
+<footer class="clearfix">
+  <div class="width-container">
+    {% if request.url_path == "/test" %} This is a test page. This is only a test {% endif %}
+    {{ content_for_footer }}
+    <div class="row-fluid">
+      <div class="span4 watermark">
+        <a href="/"><img src="rpcvw_logo_white_slim.svg"></a>
+      </div>
+      <div class="span8">
+        <div class="footer-text">
+          <div class="social-icons">
+            <a href="https://www.facebook.com/RPCVW" target="_blank" title="Like our public Facebook Page"><i class="fa fa-facebook"></i></a>&emsp;
+            <a href="https://www.facebook.com/groups/rpcvw/" target="_blank" title="Join our private Facebook Group"><i class="fa fa-facebook-square"></i></a>&emsp;
+            <a href="https://twitter.com/rpcvw" target="_blank" title="Follow @rpcvw on Twitter"><i class="fa fa-twitter-square"></i></a>&emsp;
+            <a href="https://www.linkedin.com/groups/875397" target="_blank" title="Network in our private Linkedin Group"><i class="fa fa-linkedin-square"></i></a>&emsp;
+            <a href="https://www.instagram.com/rpcvw/" target="_blank" title="Tag our pictures on Instagram"><i class="fa fa-instagram"></i></a>&emsp;
+          </div>
+          <div class="fine-print">
+            <h6>&copy; {{ "now" | date: '%Y' }} {{ site.long_name }}</h6>
+            {% if settings.has_address? %}<h6>{{ settings.address.one_line | remove: ', United States' }}</h6>{% endif %}
+            <h6>Affiliate group of the<span class="mobile-visible"></span> <a href="http://www.peacecorpsconnect.org/" target="_blank">National Peace Corps Association</a></h6>
+            <h6>501 (c)(3) Fed. ID: 52-1194965.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid desktop-visible">
+      <div class="span7 footer-left">
+        <h6>
+          {% if request.logged_in? %} Hi <a href="{{ request.current_signup.settings_url }}">{{ request.current_signup.name_or_email }}</a>. View your {% if site.show_public_profiles? %}
+          <a href="{{ request.current_signup.profile_url }}">public profile</a>, {% endif %}
+          <a href="{{ request.current_signup.settings_url }}">account settings</a>, or
+          <a href="{{ request.current_signup.logout_url }}">sign out</a>. {% else %} Sign in with <a href="{{ request.facebook_connect_url }}">Facebook</a>, <a href="{{ request.twitter_connect_url }}">Twitter</a> or <a href="/login">email</a>. {% endif %} {% if request.current_user.can_publish? %}
+          <p><small><a href="{{ page.admin_edit_url }}">Edit this page</a> Page Type: {{ page.type_slug }}</small></p>
+          {% endif %}
+        </h6>
+      </div>
+      <div class="span5 footer-right">
+        <h6>Powered by <a href="http://nationbuilder.com/">NationBuilder</a></h6>
+        <p><a href="https://github.com/rpcvw" target="_blank" title="Help us share with the development community"><i class="fa fa-github fa-1" aria-hidden="true"></i>&emsp;</a></p>
+      </div>
+    </div>
+  </div>
+</footer>
+</div>
+</div>
+</div>
+<script src="widgets.js"></script>
+{% if page.type_slug == "calendar" or page.type_slug == "event" or page.is_homepage? == true %}<script src="atc.min.js"></script>{% endif %}
+{% comment %}<script src="scrollspy.js"></script>
+<script>$(document).ready(function(){$(".scrollspy").scrollSpy(),$("#addgroup").mouseenter()})</script>
+{% if request.url_path contains "gala" %}<script>$(document).ready(function(){$(".slider").slider({full_width:!0})})</script>{% endif %}
+{% endcomment %}
+</body>
+</html>

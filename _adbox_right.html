@@ -1,0 +1,61 @@
+
+
+<ul class="collapsible" data-collapsible="expandable">
+  <h3 class= "center">Visit Our</h3>
+  <h3 class= "center padbottommore"><a href="/sponsor_list" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: 'sponsor_list'});">{{ page.headline }}</a></h3>
+  
+  {% for signup in page.directory.listings %}
+  {% if signup.tags contains "donor_level_1" %} 
+  <li>   
+    <div class="collapsible-header waves-effect waves-ripple waves-dark" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-expand'});"><strong>{{ signup.published_name }}</strong></div>
+    <div class="collapsible-body">
+      <div class="row-fuid center"><!-- holds spans in desktop view-->      
+        {% for attachment in page.attachments %} <!-- upload square, high quality images to the Files section. name each by corresponding username ex: "username.jpg" -->
+        {% if attachment.file_name contains signup.username %} <!-- matches part of the image file name to the entry username, ignores file extension -->
+        
+        <a href="{{ signup.profile_url }}" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-logo'});"><img src="{{ attachment.url }}" style="max-height: 140px;"></a><!-- displays the matched image -->
+        
+        {% endif %}
+        {% endfor %}
+        
+        {% if signup.username contains "sonita" %}
+        <div class="padtop"></div>
+        <h4><a href="{{ signup.profile_url }}" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-logo'});">{{ signup.published_name }}</a></h4>
+        <small>{{ signup.description }}</small>
+        {% endif %}
+        
+        <div class="padleft padright">
+          <hr>  
+          <div class="row-fluid center">
+            {% if signup.has_website? %}<!-- displays Twitter icon if user has account -->
+            <div class="span3">
+              <div class="icon"><!-- arranges icon-->
+                <a href="{{ signup.website }}" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-website'});" title ="Website"><i class="fa fa-globe"></i></a>
+              </div>
+            </div>
+            {% endif %}
+            {% if signup.has_twitter_info? %}<!-- displays Twitter icon if user has account -->
+            <div class="span3">
+              <div class="icon"><!-- arranges icon-->
+                <a href="{{ signup.twitter_profile_url }}" title ="follow @{{ signup.twitter_login }}" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-twitter'});"><i class="fa fa-twitter"></i></a>
+              </div>
+            </div>
+            {% endif %}
+            <div class="span3">
+              <div class="icon"><!-- arranges icon-->
+                <a href="mailto:{{ signup.email }}" title="Email {{ signup.first_name }}" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-email'});"><i class="fa fa-envelope"></i></a><!-- another repurposed field. Not wanting to show the user's private email, we're using the work phone field instead. This field is limited to 20 characters and may be changed by the user Settings-->
+              </div>
+            </div>
+            <div class="span3">
+              <div class="icon"><!-- arranges icon-->
+                <a href="{{ signup.profile_url }}" title="Full bio" onClick="ga('send', 'event', { eventCategory: 'SponsorAds', eventAction: 'click', eventLabel: '{{ signup.published_name }}-profile'});"><i class="fa fa-question-circle"></i></a><!-- link to public profile -->
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endif %}
+  {% endfor %}
+</ul>

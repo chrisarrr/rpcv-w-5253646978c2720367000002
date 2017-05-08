@@ -1,0 +1,18 @@
+<div class="padtop padbottomore">
+  <select id="foo" class="user-success">
+    <option value="">Email a Board Member</option>
+    {% for signup in page.directory.listings %} 
+    {% if signup.tags contains "board" %}
+    <option value="mailto:{{ signup.work_phone_number }}">{{ signup.first_name }} {{ signup.last_name }}, {{ signup.description }}</option>
+    {% endif %}
+    {% endfor %}
+  </select>
+</div>
+
+<script>
+  document.getElementById("foo").onchange = function() {
+    if (this.selectedIndex!==0) {
+      window.location.href = this.value;
+    }        
+  };
+</script>

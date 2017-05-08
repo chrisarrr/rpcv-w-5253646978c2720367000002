@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">    <!-- So that mobile webkit will display zoomed in -->
+    <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS -->
+    <title>{{ mailing.type_name }}</title>
+    <style type="text/css">
+      
+      /* Resets:see reset.css for details */
+      body{background-color:#e5e5e5;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;}
+      body{color:#575757;font-family:"Lato",'Helvetica',Arial,sans-serif;margin:0;padding:0;}
+      table{border-spacing:0;border-collapse:collapse;border-spacing:0;}
+      table td{border-collapse:collapse;}
+      p{margin-bottom:1em;}
+      h1.site-title{font-size:25px;}
+      .body-content img{max-width:100%;}
+      a:link {color: #cd3c48;}
+      a:link {text-decoration:none}
+      
+      /* Constrain email width for small screens */
+      @media screen and (max-width:600px) {
+        table[class="container"] { width:100%!important; }
+      }
+      
+      /* Give content more room on mobile */
+      @media screen and (max-width:480px) {
+        table[class="container"] { width:100%!important; }
+        div[class="body-content"]img { width:100%; }
+        h1[class="site-title"] { font-size:25px!important; }
+      }
+      
+      /* Styles for forcing columns to rows */
+      @media only screen and (max-width:600px) {
+        
+        /* force container columns to (horizontal) blocks */
+        table[class="container"] { width:100%!important; }
+        h1[class="site-title"] { font-size:22px!important; }
+      }
+      
+    </style>
+  </head>
+  <body bgcolor="#e5e5e5" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+    
+    <!-- 100% wrapper -->
+    <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#e5e5e5" style="padding-left:10px;padding-right:10px">
+      <tr>
+        <td height="30"></td>
+      </tr>
+      <tr>
+        <td align="center" valign="top">
+          
+          <!-- header -->
+          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="">
+            <tr>
+              <td align="center">
+                
+              </td>
+            </tr>
+          </table>
+          <!-- ### 600PX CONTAINER ### -->
+          <table style="font-size: 14px;" width="600" cellpadding="0" cellspacing="0" class="container" border="0">
+            
+            <tr>
+              <td style="font-family:'Lato',Helvetica,Arial,sans-serif; font-weight: 300;padding: 20px;line-height:1.5;background-color:#ffffff;-webkit-border-radius:5px;-moz-border-radius: 5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;" bgcolor="#ffffff" class="body-content">
+                {% yield %}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style="padding: 20px 0px 20px 0px; text-align:center"> 
+                  <a title="Click here to vist rpcvw.org" href="{{ site.full_url }}" target="_blank">
+                    <img src="rpcvw_logo_inlay_drkgry.png" border="0" alt="Returned Peace Corps Volunteers of Washington, D.C." width="200" />
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <tr>
+                <td style="font-family:'Lato',Helvetica,Arial,sans-serif; font-weight: 300;padding: 10px;line-height:1.5;background-color:#ffffff;-webkit-border-radius:5px;-moz-border-radius: 5px;-ms-border-radius:5px;-o-border-radius:5px;border-radius:5px;text-align:center;">
+                  <p style="color:#575757;font-size:10px;line-height:1.0;">
+                    Returned Peace Corps Volunteers of Washington, D.C. </p>
+                  <p style="color:#575757;font-size:10px;line-height:1.0;">{{ settings.address.one_line }}</p>
+                  <p style="color:#575757;font-size:10px;line-height:1.0;">501 (c)(3) Fed. ID: 52-1194965</p>
+                  <p style="color:#575757;font-size:10px;line-height:1.0;"> {% if recipient.has_password? == false %}<a style="color:#cd3c48; text-decoration:none" href="{{ recipient.account_activation_url }}">Click here to activate your account</a>. It only takes a second!{% else %}<a style="color:#cd3c48; text-decoration:none" href="{{ site.full_url }}/login/?utm_source=eblast&utm_medium=email&utm_campaign=autoresponse">Log-in to your account</a>{% endif %}</p>
+                </td>
+            </tr>
+            <table style ="font-family:'Lato',Helvetica,Arial,sans-serif; font-weight: 300;padding-left:20px;padding-right:20px" width="600" cellpadding="0" cellspacing="0" class="container" border="0">
+              <tr>
+                <td width="60%" style="padding-top:15px;font-family:'Lato',Helvetica,Arial,sans-serif; font-weight: 300">
+                  <p style="text-align:left;color:#575757;font-size:8px;line-height:1;font-family:'Lato',Helvetica,Arial,sans-serif; font-weight: 300">This is an official email from RPCV/W</p>
+                  <p style="text-align:left;color:#575757;font-size:8px;line-height:1">If you use Gmail, drag it to your Primary tab to ensure future deliveries</p>
+                  <p style="text-align:left;color:#575757;font-size:8px;line-height:1">To update your account info, <a style="color:#cd3c48; text-decoration:none" href="{{ site.full_url }}/update/?utm_source=eblast&utm_medium=email&utm_campaign=auto-response-update-link">click here</a></p>
+                </td>
+                <td width="40%" style="padding-top:15px;">
+                  <p style="text-align:right;font-size:8px;">
+                    <a href="https://www.facebook.com/RPCVW" target="_blank"><img src="facebook-3-32.png" alt="RPCV/W Facebook"></a>
+                    <a href="https://twitter.com/rpcvw" target="_blank"><img src="twitter-3-32.png" alt="RPCV/W Twitter"></a>
+                    <a href="http://www.linkedin.com/groups?gid=875397" target="_blank"><img src="linkedin-3-32.png" alt="RPCV/W Linkedin"></a>
+                  </p>
+                </td>
+              </tr>
+            </table>
+            <tr>
+              <td height="10"></td>
+            </tr>
+          </table>
+          <!-- ### 600PX CONTAINER ###  -->
+        </td>
+      </tr>
+    </table>
+    <!--/100% wrapper-->
+  </body>
+</html>

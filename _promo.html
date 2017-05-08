@@ -1,0 +1,25 @@
+<div class="row-fluid">
+  <div class="span4">  
+    {% if event.has_meta_image? %}
+    <a href="{{ event.url }}" title="Click here for more information"> 
+      <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" class="img-full" >
+    </a>
+    {% endif %}
+    <div class="padtop">
+      {% if event.event.is_maximum_capacity? %}
+      <a class="button destroy-link" href="{{ event.url }}">We're all out!</a>
+      {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+      <a class="submit-link" href="{{ event.url }}" onClick="ga('send', 'discount', { eventCategory: 'button', eventAction: 'getcode', eventLabel: '{{ event.url }}'});">Get Code</a>    
+      {% endif %}  
+    </div>
+  </div> <!-- span -->
+  <div class="span8">
+      <h3 class="padbottom"><a href="{{ event.url }}">{{ event.name }}</a></h3>
+      {% if event.event.is_multi_day? %}
+      <h4>Active until {{ event.event.local_end_at | event_date }}</h4>
+      {% endif %}
+      {% if event.event.content.size > 0 %}
+      {{ event.event.content | truncatechars:400 }} {% if event.event.content.size > 400 %}<a href="{{ event.url }}">read more</a>{% endif %}
+      {% endif %}
+  </div>
+</div><!-- row -->

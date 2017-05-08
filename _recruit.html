@@ -1,0 +1,43 @@
+
+{% if request.sorta_logged_in? %}
+<div class="padtopmore">
+  <div class="box">
+    <h3><a href="recruit">Recruit Your Friends</a></h3>
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        <p> You can earn participation points when people click on the link below. Check your standing at the <a href="/leaderboard">leaderboard</a>. Can you get the high score?</p>
+        <div class="form">
+          <input type="text" class="text share-url" readonly="readonly" value="{{ page.full_url_with_recruiter }}">
+        </div>
+        <ul class="breadcrumbs">
+          <li><a href="mailto:?body={{ page.full_url_with_recruiter }}">Email</a><span class="divider">/</span></li>
+          <li><a href="http://www.facebook.com/share.php?u={{ page.full_url_with_recruiter | urlencode }}">Facebook</a><span class="divider">/</span></li>
+          <li><a href="{{ page.tweet_url }}">Twitter</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="padtopmore">
+    <div class="box">   
+      <h3><a href="recruit">Recruit Your Friends</a></h3>
+      <div class="share-container">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="padbottom"><a href="/login">Sign in</a> if you'd like new recruits to be credited to you. Logged-in participants can check their rankings at the <a href="/leaderboard">leaderboard</a>.
+            </div>
+            <div class="form">
+              <form><input type="text" class="text share-url" readonly="readonly" value="{{ page.full_url }}"></input></form>
+          </div>
+          <ul class="breadcrumbs">
+            <li><a href="mailto:?body={{ page.full_url_with_recruiter }}">Email</a><span class="divider">/</span></li>
+            <li><a href="http://www.facebook.com/share.php?u={{ page.full_url_with_recruiter | urlencode }}">Facebook</a><span class="divider">/</span></li>
+            <li><a href="{{ page.tweet_url }}">Twitter</a></li>
+          </ul>
+        </div>      
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

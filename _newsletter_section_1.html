@@ -1,0 +1,29 @@
+
+{% for event in page.calendar.events_upcoming %}
+{% if event.event.is_maximum_capacity? %}{% else %}
+<h2 class="mc-toc-title" style="text-align:center"><a href="{{ event.full_url }}">{{ event.name }}</a></h2>
+{% if event.has_meta_image? %}
+<a href="{{ event.full_url }}" title="Click here for more information"> 
+  <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" style="width:400px;margin: 15px auto;display: block;" >
+</a>
+{% else %}{% endif %}
+<h4 style="text-align:center">{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }} {% if event.event.days_until < 0 %}{{ event.event.local_start_at | date: '%Y' }}{% endif %}
+  {% if event.event.is_multi_day? %}
+  through {{ event.event.local_end_at | event_date }}
+  {% endif %}</h4>
+
+
+<p style="text-align: center; margin: 2rem 0;"><a style="display: inline-block; padding: 14px 32px; background: #cd3c48; border-radius: 4px; font-weight: normal; letter-spacing: 1px; font-size: 20px; line-height: 26px; color: white; text-decoration: none;" title="Click here to RSVP" href="{{ event.full_url }}" target="_blank">Details/RSVP</a></p>
+
+
+{% if event.event.has_venue_address? %}
+<h3 style="text-align:center"><a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a></h3>
+{% else %}
+<h3 style="text-align:center">{{ event.event.venue_name }}</h3>
+{% endif %}
+
+{{ event.event.content }}  
+
+<hr>
+{% endif %}
+{% endfor %}

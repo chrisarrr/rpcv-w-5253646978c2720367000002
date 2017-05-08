@@ -1,0 +1,982 @@
+/* ===================================================================================
+This is the tablet and desktop stylesheet. It applies to viewports above 768px.
+For the mobile first stylesheet which applies to all screen widths, see theme.scss.
+=================================================================================== */
+
+//* style variables *//
+
+// headline font
+$headline-font: 'Montserrat', sans-serif;
+
+// main fonts
+$font:'Lato', sans-serif; 
+
+$theme-color-1: #CD3C48; // soft red
+$theme-color-2: #d7d7d7; // very light gray
+$theme-color-3: darken($theme-color-1, 5);
+$theme-color-4: #000; // black
+$theme-color-5: #C80305; // dark red used to be 950810
+$theme-color-6: #f3f3f3; // super light gray
+$theme-color-7: #575757; // med gray
+
+// form input area focus color
+$theme-color-5: rgba(220, 61, 36, 0.6);
+
+// general success and error colors
+$red: #b94a48;
+$green: #619114;
+
+// border-radius mixin
+@import "border_radius";
+
+// fluid grid for tablet
+@import "grid-tablet";
+
+//compass css3 mixins
+@import "compass/css3";
+
+//mobile nav
+@import "mobile-nav";
+
+// Headers for tablet and desktop
+
+h1, h2 {
+  line-height: 35px;
+  color: $theme-color-3;
+}
+
+h3 {
+  line-height: 25px;
+}
+
+h1 {
+  font-size: 38.5px;
+}
+
+h2 {
+  font-size: 31.5px;
+}
+
+h3 {
+  font-size: 24.5px;
+}
+
+h4 {
+  font-size: 17.5px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 11.9px;
+}
+
+body {
+  font: 15px/21px $font;
+}
+
+.columns-1-flash {
+  padding-bottom: 20px;
+}
+
+// page layout if the sidebar is turned on
+
+.twocolumn-container {
+  margin-top: -30px;
+  margin-bottom: 20px;
+  .left-column, .right-column-wide {
+    background-color: #fff;
+    padding: 15px;
+    float: left;
+    width: 68.2261208577%;
+    // 710px ÷ 1100px
+    margin-right: 1.559454191033%;
+    // 16px ÷ 1100px
+    margin-bottom: 15px; //changed from 0
+  }
+  .right-column, .left-column-narrow {
+    float: right; //changed from left
+    width: 30.214424951267%;
+    // 310px ÷ 1100px
+    margin-bottom: 0;
+    margin-top: 15px;
+  }
+  .right-column-wide {
+    margin-right: 0;
+  }
+  .left-column-narrow {
+    margin-right: 1.559454191033%;
+    // 16px ÷ 1100px
+  }
+}
+
+// wraps your site name or site logo
+
+header {
+  max-width: 100%;
+  text-align: left;
+  padding: 35px 0 20px 30px;
+}
+
+// if the site has a logo, center it it above content in mobile view
+
+.site-logo { 
+  float: left;
+  height: 200px;
+  header, header.splash {
+    text-align: left;
+    padding: 0;
+    max-width: 400px;
+    margin-left: 0;
+    position: absolute;
+  }
+}
+
+
+// site wide footer max-width: 27.875243664717%; (line 87 and 74)
+
+footer {
+  .watermark {
+    text-align: left;
+    img {
+      max-width:100%;
+    }
+  }
+  padding-bottom: 3em;
+  .footer-text {
+    line-height: 2em;
+    text-align: right;
+    font-size: 1.1em;
+    margin-bottom: 2em;
+    .fine-print {
+      line-height: 1em;
+    }
+  }
+  .footer-right {
+    margin-top: 0;
+    text-align: right;
+  }
+  .row-fluid [class*="span"] {
+    min-height: 0;
+  }
+}
+
+.social-icons {
+  margin-bottom: 0em;
+  margin-top: 2em;
+  a {
+    font-size: 2em;
+  }
+}
+
+// hides off canvas nav
+
+.wrap.active {
+  left: 0;
+}
+
+.sharetable {
+  display: block;
+  width: 487px;
+  .facebook-cell {
+    float: left;
+    text-align: left;
+    padding: 0 20px 0 0;
+    vertical-align: top;
+    width: 320px;
+  }
+  .twitter-cell {
+    float: left;
+    text-align: left;
+    padding: 0 20px 0 0;
+    vertical-align: top;
+    width: 75px;
+  }
+  .gplus-cell {
+    float: left;
+    text-align: left;
+    vertical-align: top;
+    width: 52px;
+  }
+}
+
+.mobile-visible {
+  display: none;
+}
+
+.desktop-visible {
+  display: block;
+}
+
+.flash-share {
+  .float {
+    float: right;
+  }
+}
+
+.right {
+  float:right;
+}
+
+.left {
+  float:left;
+}
+
+// icon which activates off canvas nav
+
+.menu-link {
+  display: none;
+}
+
+// top nav with drop downs
+
+nav, .subnav {
+  background-color: transparent;
+  border-right: 0;
+  border-top: 0;
+  float: right;
+  height: auto;
+  max-width: 50%;
+  margin-top: 55px;
+  // 700px ÷ 1100px
+  margin-left: 1.949317738791%;
+  // 20px ÷ 1100px
+  position: inherit;
+  width: 43%;
+  .topnav {
+    padding: 0;
+    clear: both;
+    list-style: none;
+    font-size: 14px;
+    font-family: $headline-font;
+  }
+  li {
+    display: inline-block;
+    margin: 0 0px 5px 0;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #fff;
+    line-height: 40px;
+    font-size: 16px;
+    @include border-radius(2px);
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: #000;
+      padding: 0 15px;
+    }
+    &:last-child {
+        margin-right: 0;
+      }
+      &:hover, &.active{
+        border-color: transparent;
+        background-color:  $theme-color-1;    
+        a {
+          color: #fff;
+        }
+      }
+  }
+  /* controls bg color of top when hovering on sub */
+  .sub {
+    position: absolute;
+    top: 40px;
+    margin-left: -1px;
+    z-index: 99999;
+    background-color: $theme-color-1;
+    padding: 8px 0 5px 0;
+    @include border-radius-top-right(2px);
+    @include border-radius-bottom-left(2px);
+    @include border-radius-bottom-right(2px);
+    width: 200px;
+    display: none;
+  }
+  .sub li {
+    width: 100%;
+    border: none;
+    color: $theme-color-2;
+    font-size: 13px;
+    line-height: 18px;
+    display: block;
+    background-color:  $theme-color-1;
+    border-color:transparent;
+    @include border-radius(0);  
+    &.mobile-visible {
+      display: none;
+    }
+  }
+  .sub a {
+    background: none;
+    padding: 5px 20px 5px 22px; 
+    &:hover {
+        background-color: darken($theme-color-3, 10);
+        text-decoration: none;
+      }
+  }
+}
+
+// navigation shown if a page has more than one subpage
+
+.subnav {
+  margin: 0 0 15px 0;
+  padding: 0;
+  float: left;
+  clear: both;
+  font-size: 13px;
+  max-width: 100%;
+}
+
+.desktop-nav {
+  li:hover .sub {
+      display: block;
+    }
+}
+
+// follow page link shown in page stream
+
+.page-follow {
+  float: right;
+  margin-top: -35px;
+}
+
+// inline radio buttons and check boxes
+
+.radio-inline, .checkbox-inline {
+  span {
+    white-space: nowrap;
+    display: inline-block;
+  }
+  input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+    display: inline-block;
+  }
+  input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
+      background-color: transparent;
+      color: $theme-color-4;
+    }
+    label {
+      display: block;
+    }
+    label.radio, label.checkbox {
+      .option_label {
+        display: inline;
+      }
+      position: relative;
+      top: 2px;
+      display: inline-block;
+      width: auto;
+      background-color: transparent;
+      font-family: $font;
+      color: $theme-color-4;
+      font-size: 15px;
+      font-weight: normal;
+      text-align: left;
+      padding: 0;
+      margin: 0 10px 10px 5px;
+    }
+    label.checkbox {
+      position: relative;
+      padding: 0;
+      height: auto;
+      font-size: inherit;
+      margin: 0;
+    }
+    &.checkbox-inline {
+      vertical-align: top;
+      li {
+        width: auto;
+        label {
+          width: auto;
+        }
+        input[type="checkbox"] {
+          vertical-align: middle;
+        }
+      }
+    }
+}
+
+// inline radio buttons
+
+.radio.inline, .checkbox.inline, .inline label.radio {
+  display: inline-block;
+  margin-right: 20px;
+  padding-top: 5px;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  &:first-child {
+      margin-left: 0;
+    }
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  border: 0;
+  padding: 0;
+  background: none;
+  @include box-shadow(0);
+}
+
+// wraps credit card icons
+
+.cc {
+  padding-bottom: 10px;
+}
+
+// sponsor list 
+
+ul.sponsor-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+// paid membership options
+
+ul.membership-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  .featured {
+    margin-right: -105%;
+    width: 204%;
+  }
+  li.membership {
+    position: relative;
+    float: left;
+    text-align: center;
+    list-style: none;
+    background-color: $theme-color-6;
+    @include border-radius(2px);
+    padding: 15px;
+    display: inline-block;
+    margin: 0 10px 15px 0;
+    width: 23.983739837398%; // 236px ÷ 984px
+    height: 300px;
+    .membership-bottom {
+      background-color: #444;
+      color: #000;
+    }
+    .membership-blurb {
+      padding: 15px 0;
+      font-size: 13px;
+      line-height: 16px;
+    }
+    .buy {
+      position: absolute;
+      width: 100%;
+      bottom: 15px;
+      margin-left: -15px;
+    }
+    .badge {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// featured content slider
+
+.page-features {
+  position: relative;
+  margin: -30px 0 50px 0;
+  .features-headline {
+    font-size: 20px;
+    padding: 15px;
+  }
+}
+
+.flex-direction-nav {
+  top: 36%;
+}
+
+.flex-prev, .flex-next {
+  display: block;
+  height: 58px;
+  font-size: 25px;
+}
+
+// inline sign in form
+
+.user-session-form-container {
+  .oauth-links {
+    margin-bottom: 0;
+  }
+  .sign-in-with-email, .sign-up {
+    border-left: 1px solid #000;
+    padding-left: 2.7624309392265194%;
+  }
+}
+
+.review-rules {
+  float: right;
+  font-size: 12px;
+  padding: 0;
+}
+
+// page specific styles
+
+.page-user-sessions-new-wide, .page-users-accounts-new-wide, .page-users-password-resets-new-wide, .page-users-passwords-new-wide {
+  .onecolumn-container {
+    margin: 0 auto;
+    margin-top: -30px;
+    margin-bottom: 20px;
+    width: 75%;
+  }
+  footer {
+    margin: 0 auto;
+    display: none;
+  }
+}
+
+// list of events on calendar page
+
+.event-wrap {
+  margin: 0;
+  padding: 0;
+  li {
+    list-style: none;
+    background-color: $theme-color-6;
+    padding: 10px;
+    margin-bottom: 10px;
+    &:last-child {
+        margin-bottom: 0;
+      }
+  }  
+}
+
+#event_rsvp_guests_count, input.quantity, #signup_donations_to_raise_amount {
+  width: 25%;
+}
+
+.suggestion-tag-list {
+  li {
+    margin: 15px 15px 10px 0;
+  }
+}
+
+input#donation_amount_other {
+  width: 30%;
+}
+
+.distance {
+  .within {
+    position: relative;
+    top: 2px;
+    display: inline;
+    padding-right: 5px;
+  }
+}
+
+.page-user-sessions-new-wide {
+  h2 {
+    font-size: 31.5px;
+    line-height: 35px;
+  }
+}
+
+// inline formatting for name, activity type and date in page stream for tablet and desktop view
+
+ul#page-stream {
+  li.activity  {
+    span + a {
+      display: inline;
+    } 
+  }
+  .activity-time {
+    display: inline;
+  }
+  .timeago {
+    display: inline;
+    padding-right: 0;
+    float: none;
+    font-size: 65%;
+    color: inherit;
+  }
+  .activity_links a {
+    display: inline;
+  }
+  .activity_content {
+    clear: none;
+  }
+}
+
+//press
+
+.press-headline {
+  min-height: 69px;
+}
+
+// Board Box
+
+// leaderboard fix
+
+.board-box-container {
+  overflow: hidden;
+  width: 104%;
+}
+
+.board-box {
+  width: 48%;
+  .board-box-right {    
+    max-width: 230px;
+  }
+}
+
+
+// Tablet only
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+  // off canvas nav to be used on tablets, since drop downs don't work on touch devices
+  
+  nav {
+    @include mobile-nav;
+    float: none;
+    margin: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      @include border-radius(0);
+      line-height: 21px;
+      &.active, &.drop {
+        background-color: $theme-color-4;
+        border-bottom: 1px solid darken($theme-color-4, 15);
+      }
+      a {
+        padding: .8em;
+      }
+    }
+    .sub {
+      position: static;
+      width: 100%;
+      padding: 0;
+      li {
+        border-bottom: 1px solid darken($theme-color-4, 15);
+        background-color: darken($theme-color-4, 5);
+        &:last-child {
+            margin-bottom: 0;
+          }
+          a {
+            padding: 12px;
+          }
+          &.mobile-visible {
+            display: block;
+          }
+      }
+    }
+  }
+  
+  .menu-link {
+    display: block;
+  }
+  
+  .wrap.active {
+    left: 16em;
+  }
+  
+  // javascript is used to wrap all iframes in a span called responsive-embed-wrapper to make them responsive.
+  // once the iframe is wrapped in said span, it will be shown.
+  
+  iframe[src *= 'youtube'] {
+    display: none;
+  }
+  
+  .responsive-embed-wrapper iframe {
+    display: block;
+  }
+  
+  .fb-like-box iframe {
+    display: block;
+  }
+  
+  header {
+    padding: 28px 0 0 0;
+    max-width: 78%;
+  }
+  
+  // replaces the subnav with breadcrumbs, as dropdowns don't work in touch devices [padding: 28px 0 0 0; 558] max-width: 78%;
+  
+  .tablet-visible {
+    display: block;
+  }
+  
+  .desktop-visible {
+    .subnav-container {
+      display: none;
+    }
+  }
+}
+
+.home-intro {
+  
+}
+
+//image overlay
+
+.img-overlay {
+  margin-top: 1%;
+  margin-left: 1%;
+  max-width: 385px;
+  background-color: rgba(235, 235, 235, 0.85);
+  position: absolute;
+  padding: 10px;
+  width: 100%;
+  @include border-radius(6px);
+}
+
+// Desktop above 1140px styles
+
+@media only screen and (min-width: 1140px) {
+  
+  // mailchimp newsletter archive
+  
+  .display_archive {
+    .campaign{
+      margin-bottom: 10px;
+      font-family: $headline-font;
+      font-size: 18px;
+      font-weight: bold;
+      a {
+        font-size: 18px;
+        font-weight: normal;
+      }
+    }
+  }
+  
+  // maximum side width container
+  
+  .width-container {
+    width: 1100px; 
+    margin: 0 auto;    
+  }
+}
+
+
+// adaptive slider
+
+ul.adaptive-slider {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    &.slider-nav {
+      cursor: pointer;
+      position: absolute;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      font-size: 3em;
+      display: block;
+      line-height: 400px;
+      height: 400px;
+      width: 60px;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0.7;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      -webkit-transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+      -moz-transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+      -o-transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+      transition: opacity 0.3s, background-color 0.3s, color 0.3s;
+      &:hover {
+          opacity: 1;
+        }
+        &.next {
+          right: 0;
+        }
+        &.prev {
+          left: 0;
+        }
+    }
+    &.slider-item {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      -webkit-transition: opacity 0.5s;
+      -moz-transition: opacity 0.5s;
+      -o-transition: opacity 0.5s;
+      transition: opacity 0.5s;
+      &.active {
+        opacity: 1;
+      }
+      figure {
+        margin: 0;
+        position: relative;
+        img {
+          display: block;
+        }
+        figcaption {
+          background-color: rgba(0, 0, 0, 0.5);
+          color: white;
+          width: calc(100% - 120px);
+          text-align: center;
+          position: absolute;
+          bottom: 0;
+          left: 60px;
+          z-index: 1;
+          max-height: 6em;
+          overflow: hidden;
+          -webkit-transition: max-height 1s;
+          -webkit-transition-delay: 0.2s;
+          -moz-transition: max-height 1s 0.2s;
+          -o-transition: max-height 1s 0.2s;
+          transition: max-height 1s 0.2s;
+          h1 {
+            line-height: 3em;
+            margin: 0;
+            font-weight: 400;
+          }
+          p {
+            margin: 0;
+            padding: 0 20px 20px 20px;
+            display: block;
+            overflow: hidden;
+            text-align: justify;
+          }
+          &:hover {
+              max-height: 100%;
+            }
+        }
+      }
+    }
+  }
+}
+
+.slider-container {
+  max-width: 1260px;
+  width: 100%;
+  margin: 0 auto;
+  top: 40px;
+  position: absolute;
+  .navigation {
+    z-index: 20;
+    
+    .text-content {
+      
+      h3 {
+        
+      }
+      h4 {
+        
+      }
+    }
+    .button {
+      
+      a {
+        
+      }
+      &:hover {
+          
+          a {
+            
+          }
+        }
+    }      
+  }
+  .indicators {
+    
+    .indicator-item {
+      
+      &.active {
+        
+      }
+    }
+  }
+  .sliderbox {
+    
+    .slider {
+      
+      // Fullscreen slider
+      &.fullscreen {
+        
+        ul.slides {
+          
+        }
+        ul.indicators {
+          z-index: 20;
+          top: 10px;
+          text-align: right;
+          right: 10px;
+          
+        }
+        ul.navigation {
+          
+        }
+      }
+      .slides {
+        
+        li {
+          
+          img {
+            
+          }
+          .caption {
+            position: absolute;
+            left: 80px;
+            bottom: 30px;
+            max-width: 510px;
+            h2 {
+              
+            }
+            h4 {
+              
+            }
+            
+          } 
+          &.active {
+            
+          }
+        }
+      }
+    }
+  }
+  
+  .shadow {
+    
+  }
+}
+
+.splash {
+  max-width: 1260px;
+  
+}
+
+.right-container{ 
+  position: relative;
+  top: -300px;
+  z-index: 20;
+  margin-left: 20px;
+  right: -60px;
+}
+
+//buttons
+
+.submit-button, .success-button {
+  cursor: pointer;
+  display: inline-block;
+  background-color: transparent;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  padding: 10px 15px;
+  font: 28px "Montserrat",sans-serif;
+  color: #CD3C48;
+  border: 3px solid #CD3C48;
+  @include transition(all .3s ease-out);
+  &:hover {   
+      font-weight: normal;
+    }
+     &:active {   
+      background-color: $theme-color-5;
+    }
+}

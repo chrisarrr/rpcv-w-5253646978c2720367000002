@@ -1,0 +1,19 @@
+
+
+ 
+  <ul>
+      {% for post in tag.most_recent_published_pages limit: 5 %}
+      <li> 
+         <a href="{{ post.url }}" class ="full"> 
+          <div> 
+            <h3>{{ post.headline }}</h3> 
+            <hr>
+            <p>{{ post.blog_post.content }}</p> 
+            <small>{{ post.blog_post.content_flip }}</small> 
+          </div> 
+        </a> 
+      </li>
+    </ul>
+    {% endfor %}
+
+ 

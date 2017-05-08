@@ -1,0 +1,40 @@
+
+<div class="directory-card-outer">
+  
+  <div class="directory-pic">{{ signup.bigger_profile_image }}</div> 
+  <div class="row-fluid directory-name">
+    <strong>{{ signup.first_name }} {{ signup.last_name }}</strong><br><span class="directory-job small">{% if signup.custom_values_for_display['country_of_service_1'].size > 0 %}{{ signup.custom_values_for_display['country_of_service_1'] | remove: '.0' }}{% else %}CoS not provided {% endif %}{% if signup.custom_values_for_display['dates_of_service_1'].size > 0 %}, {{ signup.custom_values_for_display['dates_of_service_1'] | remove: '.0' }}{% endif %}</span>
+  </div>
+  
+  {% if request.current_signup.is_member? %}
+  
+  <div class="row-fluid small">
+    
+    <div class="directory-phone clearfix">{% if signup.address.city.size  > 2 or signup.address.state.size  > 1 %}{% if signup.address.city.size  > 2 %}{{ signup.address.city }}{% endif %}{% if signup.address.city.size  > 2 and signup.address.state.size  > 1 %}, {% endif %}{% if signup.address.state.size  > 1 %}{{ signup.address.state }}{% endif %}{% else %}&nbsp;{% endif %}</div>
+    
+    <div class="directory-phone clearfix">{% if signup.occupation.size  > 2 or signup.employer.size  > 2 %}{% if signup.occupation.size  > 2 %}{{ signup.occupation }}{% endif %}{% if signup.occupation.size  > 2 and signup.employer.size  > 2 %}, {% endif %}{% if signup.employer.size  > 2 %}{{ signup.employer }}{% endif %}{% else %}&nbsp;{% endif %}</div>
+    
+  </div>  
+  
+  <div class="social">
+    <ul>
+      {% if signup.is_profile_published? %}
+      <li><a href="{{ signup.profile_url }}">Profile</a></li>
+      {% endif %}
+      {% if signup.has_facebook_info? or signup.facebook_profile_url.size  > 0 %}
+      <li><a href="{{ signup.facebook_profile_url }}">Facebook</a></li>
+      {% endif %}
+      {% if signup.has_twitter_info? %}
+      <li><a href="{{ signup.twitter_profile_url }}">Twitter</a></li>
+      {% endif %}
+      {% if signup.linkedin_profile_url.size  > 0 %}
+      <li><a href="{{ signup.linkedin_profile_url }}">Linkedin</a></li>
+      {% elsif signup.has_website? %}
+      <li><a href="{{ signup.website }}">Web</a></li>
+      {% endif %}
+    </ul>
+  </div>
+  
+  {% endif %}
+  
+</div>

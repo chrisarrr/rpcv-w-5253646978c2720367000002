@@ -1,0 +1,276 @@
+
+
+
+
+.sponsorhalf {
+  
+  html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, small, strong {
+    margin: 0;
+    padding: 1%;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  
+  body {
+    display: block;
+  }
+  
+  html {
+    overflow-y: scroll;
+  }
+  
+  a {
+    &:hover, &:active {
+        outline: none;
+      }
+  }
+  
+  small {
+    font-size: 85%;
+  }
+  
+  strong, th {
+    font-weight: bold;
+  }
+  
+  ::-moz-selection, ::selection {
+      background: #3b7cbf;
+      color: #fff;
+      text-shadow: none;
+    }
+    
+    a:link {
+      -webkit-tap-highlight-color: #3b7cbf;
+    }
+    
+    .ie7 img {
+      -ms-interpolation-mode: bicubic;
+    }
+    
+    
+    /* Primary Styles */
+    
+    body {
+      padding: 10px;
+      font: 1em "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
+      color: #515047;
+      background-color: #F2F1DB;
+    }
+    
+    a {
+      float: left;
+      width: 47%;
+      margin: 0 3% 20px 0;
+      &:link, &:visited, &:hover, &:active {
+          width: 47%;
+          margin: 0 3% 20px 0;
+          text-decoration: none;
+        }
+    }
+    
+    .full {
+      float: left;
+      width: 100% !important;
+      height: auto;
+      margin-bottom: 30px !important;
+      text-decoration: none;
+    }
+    
+    h1, h2, h3 {
+      font-size: 1.75em;
+    }
+    
+    h1 {
+      
+      line-height: 0.8;
+      letter-spacing: -0.05em;
+    }
+    
+    h2 {
+      
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+    }
+    
+    h3 {
+      
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+    }
+    
+    
+    
+    small {
+      font-size: 1em;
+      color: $theme-color-1;
+    }
+    
+    img {
+      max-width: 100%;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      
+    }
+    
+    li {
+      list-style: none;
+    } 
+    
+    
+    /* Media Queries */
+    
+    /* Column Control Media Queries */
+    
+    @media screen and (min-width: 500px) {
+      body {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 40px;
+        overflow: hidden;
+      }
+      a {
+        @include border-radius(2px);
+        -webkit-transition: background-color .3s linear;
+        -moz-transition: -color .3s linear;
+        transition: background-color .3s linear;
+        &:hover {
+            background-color: $theme-color-6;
+          }
+          &.title {
+            background-color: #f2f1db;
+          }
+          position: relative;
+        top: 0;
+        overflow: hidden;
+        &:link, &:visited, &:active {
+            position: relative;
+            top: 0;
+            overflow: hidden;
+          }
+      }
+      .title, .category {
+        position: relative;
+        top: 0;
+        overflow: hidden;
+      }
+      div, h2 {
+        position: absolute;
+      }
+    }
+    
+    /* Two Column */
+    
+    @media screen and (min-width: 500px) {
+      a {
+        width: 47%;
+        margin: 0 3% 20px 0;
+        padding-bottom: 47%;
+        &:link, &:visited, &:hover, &:active {
+            width: 47%;
+            margin: 0 3% 20px 0;
+            padding-bottom: 47%;
+          }
+      }
+      .title, .category {
+        width: 100%;
+        margin: 0 3% 20px 0;
+      }
+    }
+    
+    /* Three Column */
+    
+    @media screen and (min-width: 800px) {
+      .title, .category {
+        width: 100%;
+        margin: 0 2% 20px 0;
+     
+      }
+      a {
+        width: 47%;
+        margin: 0 2% 20px 0;
+        padding-bottom: 47%;
+        &:link, &:visited, &:hover, &:active {
+            width: 47%;
+            margin: 0 2% 20px 0;
+            padding-bottom: 47%;
+          }
+      }
+    }
+    
+    /* Four Column */
+    
+    @media screen and (min-width: 1200px) {
+      .title, .category {
+        width: 100%;
+        margin: 20px 2% 0 0;
+        padding-bottom: 100%;
+      }
+      a {
+        width: 47%;
+        margin: 20px 2% 0 0;
+        padding-bottom: 23%;
+        &:link, &:visited, &:hover, &:active {
+            width: 47%;
+            margin: 20px 2% 0 0;
+            padding-bottom: 47%;
+          }
+      }
+    }
+    
+    /* Font Size Control Media Queries */
+    
+    @media screen and (min-width: 500px) {
+      h1, h2, h3 {
+        font-size: 2.0em;
+      }
+      
+    }
+    
+    @media screen and (min-width: 600px) {
+      h1, h2, h3 {
+        font-size: 2.5em;
+      }
+    }
+    
+    @media screen and (min-width: 700px) {
+      h1, h2, h3 {
+        font-size: 2.75em;
+      }
+      
+    }
+    
+    @media screen and (min-width: 800px) {
+      h1, h2, h3 {
+        font-size: 2.5em;
+      }
+      
+    }
+    
+    @media screen and (min-width: 1000px) {
+      h1, h2, h3 {
+        font-size: 2.75em;
+      }
+      
+    }
+    
+    @media screen and (min-width: 1200px) {
+      p {
+        font-size: 1em;
+      }
+    }
+    
+    @media screen and (min-width: 1400px) {
+      
+    }
+    
+    @media screen and (min-width: 1600px) {
+      h1, h2, h3 {
+        font-size: 2.75em;
+      }
+    }
+}

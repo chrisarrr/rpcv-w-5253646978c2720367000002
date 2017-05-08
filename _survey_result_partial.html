@@ -1,0 +1,5 @@
+{% for child in page.children %}
+<div  id="{{ child.slug | remove: '_survey' }}" >{{ child.slug | remove: '_survey' }}</div>
+{{ child.survey-content }}
+{% endfor %}
+

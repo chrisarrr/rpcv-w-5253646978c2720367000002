@@ -1,0 +1,66 @@
+
+<div class="event-wide">
+  <div class="img-padleft">
+    <div class="center">
+      <div class="padbottommore">
+        <h3>{% if request.current_user.is_member? %}<a href="{{ event.url }}">{% else %}{% endif %}{{ event.name }}</a></h3>
+      </div>
+      <div class="padtop"></div>
+      <h4>{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }}
+        {% if event.event.is_multi_day? %}
+        through {{ event.event.local_end_at | event_date }}
+        {% endif %}</h4>
+      {% if event.event.is_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% elsif event.event.is_user_ticket_required? %}
+      <div class="padtop"></div>
+      <strong>Ticket required</strong>
+      {% endif %}
+      {% if event.event.has_venue? %}
+      <div class="padtop padbottommore">
+        {% unless request.current_user.is_member? %}
+        <h5><a href="/login">Log in</a> or <a href="/join">join</a> to view location</h5>
+        {% else %}
+        {% if event.event.has_venue_address? %}
+        <h5><a href="{{ event.event.venue_address.google_map_link }}">{{ event.event.venue_name }}</a></h5>
+        {% else %}
+        <h5>{{ event.event.venue_name }}</h5>
+        {% endif %}
+        {% endunless %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="img-padright padtop padbottom">
+      {% if event.event.content.size > 0 %}
+      {{ event.event.content | truncatechars:300 | strip_html }}{% if event.event.content.size > 300 %}{% if request.current_user.is_member? %}<a href="{{ event.url }}">read more</a>{% endif %}{% endif %}
+      {% endif %}
+    </div>
+    <div class="padtop center">
+      {% if event.event.show_guests? and event.event.rsvps_count > 1 %}
+      <div class="padbottom">
+        {% unless request.current_user.is_member? %}{{ event.event.rsvps_count }} people are going{% else %}<a href="{{ event.url }}#guests">{{ event.event.rsvps_count }} people are going</a>{% endunless %}
+      </div>
+      {% endif %}
+      
+      {% unless request.current_user.is_member?	%}
+      <h5 class="padtopmore padbottommore">Please <a href="/login">log in</a> or <a href="/join">join</a> us as a member to RSVP</h5>
+      {% else %}
+      
+      {% if event.event.is_maximum_capacity? %}
+      <div class="padtop"><a class="button destroy-link" href="{{ event.url }}">full</a></div>
+      {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+      <div class="padtop"><a class="submit-link" href="{{ event.url }}" onClick="ga('send', 'event', { eventCategory: 'button', eventAction: 'rsvp', eventLabel: '{{ event.url }}'});">rsvp</a>
+        {% include "addtocalendar" %}
+        {{ "Share" | share_button page_id: event.id }}
+      </div>
+      {% endif %}
+      {% if event.event.accept_rsvps? == false %}
+      <div class="padtop">
+        {% include "addtocalendar" %}            
+      </div>
+      {% endif %}
+      {% endunless %}
+    </div>
+  </div>
+</div>

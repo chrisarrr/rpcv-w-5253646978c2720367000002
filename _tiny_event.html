@@ -1,0 +1,50 @@
+
+
+<div class="tiny-event">
+  {% if event.has_meta_image? %}
+  <a href="{% if request.current_user.is_member?	%}{{ event.url }}{% else %}/member_led_events{% endif %}" title="Click here for more information"> 
+    <img alt="{{ event.meta_image_url }}" src="{{ event.meta_image_url }}" class="img-full" >
+  </a>
+  {% endif %}
+  
+  <div class="center">
+    <div class="padbottommore">
+      <h4><a href="{{ event.url }}">{{ event.name }}</a></h4>
+    </div>
+    <h5>{{ event.event.local_start_at | date: '%A, %B %d - %I:%M %p' }}
+      {% if event.event.is_multi_day? %}
+      through {{ event.event.local_end_at | event_date }}
+      {% endif %}</h5>
+    {% if event.event.is_ticket_required? %}
+    <div class="padtop"></div>
+    <small>Ticket required</small>
+    {% elsif event.event.is_user_ticket_required? %}
+    <div class="padtop"></div>
+    <small>Ticket required</small>
+    {% endif %}
+  </div>
+  <div class="img-padright padtop">
+    {% if event.event.content.size > 0 %}
+    <small>{{ event.event.content | truncatechars: 100 }} {% if event.event.content.size > 100 %}<a href="{{ event.url }}">read more</a>{% endif %}</small>
+    {% endif %}
+  </div>
+  
+  {% if event.event.is_maximum_capacity? %}
+  <a class="button destroy-link" href="{{ event.url }}">full</a>
+  {% elsif event.event.is_past? == false and event.event.accept_rsvps? %}
+  
+  <a class="submit-link" href="{{ event.url }}">rsvp</a>   
+  {% include "addtocalendar" %}
+  {{ "share" | share_button page_id: event.id }}
+  {% endif %}
+  {% if event.event.accept_rsvps? == false %}
+  {% include "addtocalendar" %}            
+  {% endif %}
+  
+  {% if event.event.show_guests? and event.event.rsvps_count > 1 %}
+  <div class="padtop">
+    <a href="{{ event.url }}#guests">{{ event.event.rsvps_count }} going</a>
+  </div>
+  {% endif %}
+</div>
+

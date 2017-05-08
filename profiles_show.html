@@ -1,0 +1,167 @@
+
+{% if profile.tags contains "donor_level_1" %}
+<div id="flash">
+  <div class="notice notice clearfix">
+    <div class="flash-message">RPCV/W is not liable for any loss or damage that you may experience as a result of the use or access of any third party service, product, application or information.
+      If you have any questions or concerns about the products and services advertised, please contact the third party directly.
+      Clicking on any link to a third party website constitutes your review and acceptance of this disclaimer.
+      <button class="flash-close">×</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if profile.profile_headline.size > 0 %}
+<h2 class="headline">{{ signup.published_name }}</h2>
+{% endif %}
+
+{% if profile.profile_content.size > 0 %}
+<div id="intro" class="intro">
+  {{ profile.profile_content }}
+</div>
+<span class="inline-block"><a href="{{ request.current_signup.settings_url }}">Edit my profile</a></span>
+{% endif %}
+
+
+<!-- profile info -->
+
+<div class="padbottommore clearfix">
+  <div class="supporter-pic-left">
+    {{ profile.bigger_profile_image }}
+    <span class="pc">{{ profile.capital_amount_format }}</span>
+  </div>
+  <div class="supporter-pic-right">
+    <h4>{{ profile.published_name }}</h4>
+    
+    <div class="user-status">
+      {% if profile.is_member? %}
+      <a href="/join"> {% if profile.tags contains "donor_level_1" %}Sponsor{% else %}Member{% endif %}</a> since {{ profile.membership_started_at | date: '%Y ' }}
+      {% elsif profile.is_admin? %}
+      Administrator
+      {% elsif profile.tags contains "member" %} 
+      Expired Membership
+      {% else %}
+      Non-member
+      {% endif %}
+      {% if profile.rule_violations_count == 1 %}
+      <span class=""> {{ "fugue-flag-yellow" | icon }} Warning</span>
+      {% elsif profile.rule_violations_count == 2 %}
+      <span class=""> {{ "fugue-flag" | icon }} 1 violation</span>
+      {% elsif profile.rule_violations_count == 3 %}
+      <span class=""> {{ "fugue-flag-gray" | icon }} 2 violations</span>
+      {% endif %}   
+      <div class="signup-follow-{{ profile.id }}">
+        {% include "signup_follow" with profile %}
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% if profile.tags contains "board" %}
+<div class="box" align="center">
+  <strong>Board Member</strong>
+  <div><a href="mailto:{{ profile.work_phone_number }}">{{ profile.work_phone_number }}</a></div>
+</div>
+{% endif %}  
+
+{% if profile.tags contains "donor_level_1" %}
+<div class="box" align="center">
+  <strong>Sponsor</strong>
+  <div><a href="mailto:{{ profile.work_phone_number }}">{{ profile.work_phone_number }}</a></div>
+</div>
+{% endif %} 
+
+{% if profile.has_bio? or profile.has_website? or profile.has_twitter_info? %}
+<div class="box">  
+  
+  {% if profile.custom_values_for_display['country_of_service_1'].size > 0 %}
+  <div><h5>First Country of Service</h5></div>test
+  {{ profile.custom_values_for_display['country_of_service_1'] | remove: '.0' }}
+  {% endif %}
+  {% if profile.custom_values_for_display['country_of_service_2'].size > 0 %}
+  <div class="padtopless">
+    <div><h5>Second Country of Service</h5></div>
+    {{ profile.custom_values_for_display['country_of_service_2'] | remove: '.0' }}
+  </div>
+  {% endif %}
+  {% if profile.custom_values_for_display['country_of_service_3'].size > 0 %}
+  <div><h5>Third Country of Service</h5></div>
+  {{ profile.custom_values_for_display['country_of_service_3'] | remove: '.0' }}
+  {% endif %}
+  {% if profile.custom_values_for_display['country_of_service_4'].size > 0 %}
+  <div class="padtopless">
+    <div><h5>Fourth Country of Service</h5></div>
+    {{ profile.custom_values_for_display['country_of_service_4'] | remove: '.0' }}
+  </div>
+  {% endif %}
+  
+  {% if profile.has_website? or profile.has_twitter_info? %}
+  <hr>
+  {% endif %}
+  {% if profile.has_twitter_info? %}
+  <div class="padtopless">
+    <div><a href="{{ profile.twitter_profile_url }}"><h5>Follow on Twitter</h5></a></div>
+  </div>
+  <div class="padtopmore">
+    <a href="{{ profile.twitter_profile_url }}" class="twitter-follow-button" data-show-count="true" data-show-screen-name="false">@{{ profile.twitter_login }}</a>
+  </div>
+  {% endif %}
+  {% if profile.has_website? %}
+  {% if profile.website contains "linkedin" %}
+  <div class="padtopless">
+    <div><a href="{{ profile.website}}"><h5>Linkedin</h5></a></div> {{ profile.website}}
+  </div>
+  <div class="padtopmore">
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+    <script type="IN/MemberProfile" data-id="{{ profile.website}}" data-format="hover" data-text="{{ profile.published_name }}"></script>
+  </div>
+  {% else %}  
+  <div class="padtopless">
+    <div><a href="{{ profile.website}}"><h5>Website</h5></a></div>
+  </div>
+  {% endif %}
+  {% endif %}
+</div>
+{% endif %}
+
+{% if settings.is_donor? %}
+{% if profile.has_fundraising_goal? %}
+{% assign thermo_width = 50 %}
+<div class="clearfix padtopmore">
+  <div class="progress" style="width: {{ thermo_width }}%;">
+    <div class="bar bar-success" style="width: {{ profile.percent_of_fundraising_goal | times:100 }}%;">
+      {% if profile.donations_raised_amount_in_cents == 0 %}
+      <div class="bar-text">JUST STARTED</div>
+      {% else %}
+      <div class="bar-text">{{ profile.donations_raised_amount_format }} raised</div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="bar-goal">GOAL: {{ profile.donations_to_raise_amount_format }}</div>
+</div>
+{% endif %}
+{% endif %}
+<div class="padbottomless padtopmore">
+  <strong>Donate on behalf of {{ profile.published_name }}:</strong>
+</div>
+
+<a class="submit-button" href="{{ site.button1_page.full_url_with_profile_recruiter }}">{{ site.button1_text }}</a>
+
+<a class="submit-button" href="{{ site.button2_page.full_url_with_profile_recruiter }}">{{ site.button2_text }}</a>
+
+<a class="submit-button" href="{{ site.button3_page.full_url_with_profile_recruiter }}">{{ site.button3_text }}</a>
+
+{% if profile.most_recent_posts.size > 0 %}
+
+<h4 class="padtopmore">{{ profile.published_name }}'s activity stream</h4>
+
+<hr/>
+
+<div id="content" class="padtopmore">
+  
+  
+  
+</div>
+
+{% endif %}

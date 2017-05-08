@@ -1,0 +1,29 @@
+<div class="left-column">
+  
+  <div class="row-fluid">
+    <div class="span9">
+      {% if page.headline.size > 0 %}
+      <h3><a href="/events">{% if page.calendar.events_upcoming_count == 0 %}No official events posted, check back soon!{% else %} We have {{ page.calendar.events_upcoming_count }} official event{% if page.calendar.events_upcoming_count > 1 %}s{% endif %} coming up{% endif %}</a></h3>
+      {% endif %}
+    </div>
+    <div class="span3 pull-right">
+      <a href="https://www.google.com/calendar/render?cid=communityservice@rpcvw.org" class="small_button right">Sync w/ Google Calendar <i class="fa fa-refresh padleft" aria-hidden="true"></i></a>
+    </div>
+  </div>
+  <hr>
+  {% if page.calendar.events_upcoming_count > 0 %}
+  {{ page.calendar.events_upcoming_map }}
+  {% endif %}
+  
+  {{ page.calendar.content }}
+  
+  <ul class="event-wrap">
+    {% for event in page.calendar.events_upcoming limit:3 offset:0 %}
+    <li>{% include "event" %}</li>
+    {% endfor %}
+  </ul>
+  
+</div> 
+
+{% subpage "member_led_events" with "member_led_events_large" %}
+

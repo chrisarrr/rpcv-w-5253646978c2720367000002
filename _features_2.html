@@ -1,0 +1,39 @@
+{% if page.features_count > 0 %}
+
+{% if page.features.size > 0 %}
+
+<div class="sliderbox">
+  <div class="logo">
+    <a href="/home" title="Click here to go to our main page">
+      <img src="rpcvw_logo_white_slim.svg">
+    </a>
+  </div>
+  <div class="slider">
+    <ul class="slides">
+      {% for feature in page.features %}
+      <li>  
+        <a href="{{ feature.page.url }}">
+          <img src="{{ feature.image_url }}" alt="">
+          <div class="caption left-align">
+            <h3>{{ feature.name }}</h3>
+            <h5>{{ feature.headline }}</h5>
+          </div>
+        </a>  
+      </li>
+      {% endfor %}
+    </ul>
+    <ul class="navigation">
+      <p>We can't wait to see you!</p>
+      
+      <li class="button"><a href="http://www.rpcvw.org/annual_holiday_party_and_silent_auction_2015">Members</a></li>
+      <li class="button"><a href="http://www.rpcvw.org/annual_holiday_party_and_silent_auction_2015_nonmember">Nonmembers</a></li>
+      <li class="button"><a href="mailto:development@rpcvw.org">Silent Auction</a></li>
+      <li class="button"><a href="mailto:development@rpcvw.org">Sponsorship</a></li>
+      <li class="button"><a href="/home">Main Page</a></li>
+    </ul>
+  </div>
+</div>
+
+{% endif %}
+
+{% endif %}

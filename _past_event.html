@@ -1,0 +1,9 @@
+<div class="row-fluid padtop" id="{{ event.event.local_start_at | date: '%Y' }}">
+  <div class="span3" id="event-date">
+    <h4>{{ event.event.local_start_at | date: '%B %d' }}</h4>
+    <h4>{{ event.event.local_start_at | date: '%Y' }}</h4>
+  </div>
+  <div class="span9">
+    <h3><a href="{{ event.url }}" id="event-name">{{ event.name }}</a></h3>
+  </div>
+</div>

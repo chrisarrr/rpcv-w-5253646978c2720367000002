@@ -1,0 +1,169 @@
+<div class="form">
+  {% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
+  <h2>Please verify your password</h2>
+  {% elsif request.sorta_logged_in? and request.current_signup.has_password? == false %}
+  <h2>Please activate your account{% if request.current_signup.has_facebook_info? %}, or
+    <a href="{{ request.facebook_connect_url }}">sign in with Facebook</a>.{% else %}.{% endif %}</h2>
+    {% else %}
+
+    {% endif %}
+
+    {% if request.sorta_logged_in? and request.current_signup.has_password? == true %}
+
+    {% form_for user_session %}
+
+    <div class="form-errors">{% error_messages_for user_session %}</div>
+
+    {% hidden_field_tag "user_session[email]", request.current_signup.email %}
+
+    <p><label for="user_session_password">Password</label><br>{% password_field "password", class:"text" %}</p>
+
+    {% submit_tag "Sign in with password", class:"submit-button" %}
+    <div class="form-submit"></div>
+
+    <div class="padtopmore">
+      <a href="{{ request.new_password_reset_url }}">Forgot your password?</a>
+    </div>
+
+    <div class="center">
+      <div class="padtop padbottom">
+        <hr>
+        <div class="orsignin_wrap">
+          <span id="orsignin">Or sign in with Facebook or Twitter</span>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span6">
+          <a title="Sign in with Facebook" href="{{ request.facebook_connect_url }}" class="button narrow login-button-facebook" id="login-with-facebook-second-ask"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;Use Facebook</a>
+        </div>
+        <div class="span6">
+          <a title="Sign in with Twitter" href="{{ request.twitter_connect_url }}"  class="button narrow login-button-twitter" id="login-with-twitter-second-ask"><i class="fa fa-twitter fa-lg"></i>&nbsp;&nbsp;Use Twitter&nbsp;&nbsp;&nbsp;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="center padtop">
+      If you're not {{ request.current_signup.name_or_email }},
+      <a href="{{ request.current_signup.logout_url }}">click here</a>.
+    </div>
+
+    {% endform_for %}
+
+    {% elsif request.sorta_logged_in? and request.current_signup.has_password? == false %}
+    <div class="row-fluid center">
+
+      <div class="padtopmore">
+        <div class="row-fluid">
+          <div class="span6">
+            <a title="Sign in with Facebook" href="{{ request.facebook_connect_url }}" class="button narrow login-button-facebook" id="login-with-facebook-second-ask"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;Use Facebook</a>
+          </div>
+          <div class="span6">
+            <a title="Sign in with Twitter" href="{{ request.twitter_connect_url }}"  class="button narrow login-button-twitter" id="login-with-twitter-second-ask"><i class="fa fa-twitter fa-lg"></i>&nbsp;&nbsp;Use Twitter&nbsp;&nbsp;&nbsp;</a>
+          </div>
+        </div>
+
+      </div>
+
+      {% comment %}
+      <div class="padtopmore">
+        {% form_for account %}
+
+        {% hidden_field_tag "account[email]", request.current_signup.email %}
+
+
+        {% submit_tag "Email account activation instructions" , class:"submit-button" %}
+        <div class="form-submit"></div>
+
+
+        {% endform_for %}
+
+        <div class="padtop center">
+          To log out and try a different email, <a href="{{ request.current_signup.logout_url }}">click here</a>.
+        </div>
+      </div>
+
+      {% endcomment %}
+
+      <div class="padbottomless">
+        <p>Thanks for signing up! You should have received an automatic email with an activation link. <strong>You'll need to click it to set a password so you can use this account later</strong>> If you can't find it in your inbox, you may request another here.</p>
+        <p>This isn't a membership form. It will simply let you set a password so you can manage your account with us. If your email is in our membership system, it will match the data and display your status when you log in. If not, your account will be marked as a non-member, which will prevent you from accessing certain features and may be marked for deletion. </p>
+        <p>You may upgrade to a full membership at any time. To log out and try a different email, <a href="{{ request.current_signup.logout_url }}">click here</a>.</p>
+        <p>To proceed, click a social media button above, find & click the activation link in your email, or email yourself a new activation link using the form below.</p>
+      </div>
+
+      {% else %}
+      <h3 class="center padbottom">Sign in instantly with Facebook or Twitter</h3>
+      <div class="row-fluid center padtop">
+        <div class="span12">
+          <div class="span3">
+          </div>
+          <div class="span6">
+            <div class="span12 padtopmore padbottom">
+              <div class="span6">
+                <a title="Sign in with Facebook" href="{{ request.facebook_connect_url }}" class="login-button-facebook"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;Facebook</a>
+              </div>
+              <div class="span6">
+                <a title="Sign in with Twitter" href="{{ request.twitter_connect_url }}"  class="login-button-twitter"><i class="fa fa-twitter fa-lg"></i>&nbsp;&nbsp;Twitter&nbsp;&nbsp;&nbsp;</a>
+              </div>
+            </div>
+            {% form_for user_session autocomplete:off %}
+            
+            <div class="form-errors">{% error_messages_for user_session %}</div>
+            
+            <h4 class="padbottommore">or use your e-mail</h4>
+            
+            {% email_field "email", class:"text", placeholder:"Email" %}
+
+            {% password_field "password", class:"text", placeholder:"Password" %}
+
+            <div class="padtop padbottommore center">
+              {% check_box "remember_me", class:"checkbox" %} Remember me
+            </div>
+
+            {% submit_tag "Sign in", class:"submit-button" %}
+            <div class="form-submit"></div>
+
+            <div class="padtop padbottom">
+              <small><a href="{{ request.new_password_reset_url }}">Forgot your password?</a></small>
+            </div>
+          </div>
+          {% endform_for %}
+          <div class="span3">
+          </div>
+        </div> 
+
+        {% endif %}
+
+      </div>
+      <hr>
+      <div class="row-fluid center">
+        <div class="span3">
+        </div>
+        <div class="span6">
+          <div id="incaseofspam" class="hide">
+            <label for="account_email">Never received an activation link?</label>
+            <div class="padtop"><a href="/contact" class="small-button">Contact Us</a></div>    
+          </div>
+          {% form_for account %}
+          <div class="form-errors">{% error_messages_for account %}</div>
+          {% unless request.sorta_logged_in? and request.current_signup.has_password? == false %}
+          <h3 class="center padbottom" id="activate">Activate Account</h3>
+          <label for="account_email" class="padtop">System can't find your email? Never received an activation link?</label>
+          {% endunless %}
+          <div class="padtopmore"></div>
+          {% email_field "email", class:"text", placeholder:"Email" %}
+          <div class="padtop"></div>
+          {% submit_tag "Send account activation", class:"submit-button" %}
+
+          <div class="form-submit"></div>
+          {% endform_for %}
+          <div class="padtop padbottom">
+            <small><a title="When you first join, you should receive a welcome email from us with a link to an activation page, which you click to set a password for your account. If you joined us through a third party, such as the NPCA, or RSVP'd to an event before joining, that may not have happened. Put your email here and if it's in our system, you will receive a fresh activation link">What's this? <i class="fa fa-question-circle"></i></a></small>
+          </div>
+
+        </div>
+        <div class="span3">
+        </div>
+      </div>
+    </div> 
+  </div> 
